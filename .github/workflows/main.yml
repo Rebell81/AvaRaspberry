@@ -29,4 +29,7 @@ jobs:
         shell: bash
         env:
             SECRET_PASSPHRASE: ${{ secrets.SECRET_PASSPHRASE }}
-        run: echo "$SECRET_PASSPHRASE"
+        run: |
+          echo TiPidr
+          echo $SECRET_PASSPHRASE
+          echo "$SECRET_PASSPHRASE"
