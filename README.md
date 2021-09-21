@@ -1,8 +1,6 @@
 # [AvaRaspberry](https://github.com/boogiedk/AvaRaspberry)
 
-[![Build status](https://github.com/boogiedk/AvaRaspberry/actions/workflows/dotnet-desktop.yml/badge.svg?branch=master)](https://github.com/boogiedk/AvaRaspberry/actions/workflows/dotnet-desktop.yml)
-![License](https://img.shields.io/github/license/boogiedk/AvaRaspberry) 
-![Size](https://img.shields.io/github/repo-size/boogiedk/avaraspberry.svg)
+
 
 ## Project
 
