@@ -14,7 +14,7 @@ namespace AvaRaspberry.ViewModels
         private string name = string.Empty;
         private string errorCode = string.Empty;
         private bool _isConnected;
-        private string _cpu, _ram, _network;
+        private string _cpu, _ram, _network, _path;
 
         public string Name
         {
@@ -49,6 +49,12 @@ namespace AvaRaspberry.ViewModels
         {
             get => _network;
             private set => this.RaiseAndSetIfChanged(ref _network, value);
+        }
+
+        public string Path
+        {
+            get => _path;
+            private set => this.RaiseAndSetIfChanged(ref _path, value);
         }
 
 
@@ -102,7 +108,7 @@ namespace AvaRaspberry.ViewModels
                         Cpu = $"{info.Data.cpu.system_load}";
                         Ram = $"{GetSizeString((info.Data.Memory.total_real-info.Data.Memory.avail_real)*1024)} / {GetSizeString(info.Data.Memory.total_real*1024)}";
                         Network = $"{GetSizeString(info.Data.Network[0].rx, isSpeed:true)} / {GetSizeString(info.Data.Network[0].tx, isSpeed: true)}";
-
+                        Path = $"{ Environment.CurrentDirectory} | {Environment.CommandLine} | {Environment.OSVersion}";
                     }
                     catch
                     {

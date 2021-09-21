@@ -18,5 +18,6 @@
 		<TextBlock TextAlignment="Center" Text="{Binding Cpu}"/>
 		<TextBlock TextAlignment="Center" Text="{Binding Ram}"/>
 		<TextBlock TextAlignment="Center" Text="{Binding Network}"/>
+		<TextBlock TextAlignment="Center" Text="{Binding Path}"/>
 	</StackPanel>
 </UserControl>
