@@ -3,8 +3,6 @@ using AvaRaspberry.Extenstion;
 using Newtonsoft.Json;
 using ReactiveUI;
 using System.Threading.Tasks;
-
-
 using SynologyClient;
 
 namespace AvaRaspberry.ViewModels
@@ -14,7 +12,22 @@ namespace AvaRaspberry.ViewModels
         private string name = string.Empty;
         private string errorCode = string.Empty;
         private bool _isConnected;
-        private string _cpu, _ram, _network, _path;
+        private string _cpu, _ramText, _network, _path;
+
+        private long _totalRam, _currentRam;
+
+        public long TotalRam
+        {
+            get => _totalRam;
+            private set => this.RaiseAndSetIfChanged(ref _totalRam, value);
+        }
+
+        public long CurrentRam
+        {
+            get => _currentRam;
+            private set => this.RaiseAndSetIfChanged(ref _currentRam, value);
+        }
+
 
         public string Name
         {
@@ -33,16 +46,17 @@ namespace AvaRaspberry.ViewModels
             get => errorCode;
             private set => this.RaiseAndSetIfChanged(ref errorCode, value);
         }
+
         public string Cpu
         {
             get => _cpu;
             private set => this.RaiseAndSetIfChanged(ref _cpu, value);
         }
 
-        public string Ram
+        public string RamText
         {
-            get => _ram;
-            private set => this.RaiseAndSetIfChanged(ref _ram, value);
+            get => _ramText;
+            private set => this.RaiseAndSetIfChanged(ref _ramText, value);
         }
 
         public string Network
@@ -89,26 +103,27 @@ namespace AvaRaspberry.ViewModels
             }
             catch (Exception ex)
             {
-
             }
         }
 
         private void start(SynologyApi api)
         {
-
             Task.Factory.StartNew(async () =>
             {
-
                 while (true)
                 {
                     try
                     {
                         var info = api.GetUtilization();
 
+                        TotalRam = info.Data.Memory.total_real * 1024;
+                        CurrentRam = (info.Data.Memory.total_real - info.Data.Memory.avail_real) * 1024;
+
                         Cpu = $"{info.Data.cpu.system_load}";
-                        Ram = $"{GetSizeString((info.Data.Memory.total_real-info.Data.Memory.avail_real)*1024)} / {GetSizeString(info.Data.Memory.total_real*1024)}";
-                        Network = $"{GetSizeString(info.Data.Network[0].rx, isSpeed:true)} / {GetSizeString(info.Data.Network[0].tx, isSpeed: true)}";
-                        Path = $"{ Environment.CurrentDirectory} | {Environment.CommandLine} | {Environment.OSVersion}";
+                        RamText = $"{GetSizeString(_currentRam)} / {GetSizeString(_totalRam)}";
+                        Network =
+                            $"{GetSizeString(info.Data.Network[0].rx, isSpeed: true)} / {GetSizeString(info.Data.Network[0].tx, isSpeed: true)}";
+                        Path = $"{Environment.CurrentDirectory} | {Environment.CommandLine} | {Environment.OSVersion}";
                     }
                     catch
                     {
@@ -120,9 +135,7 @@ namespace AvaRaspberry.ViewModels
 
                         await Task.Delay(1500);
                     }
-
                 }
-
             });
         }
 

@@ -5,19 +5,23 @@
              xmlns:viewModels="clr-namespace:AvaRaspberry.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              Background="#B0E0E6"
-             x:Class="AvaRaspberry.Views.SynologyView"
-             >
+             x:Class="AvaRaspberry.Views.SynologyView">
     <UserControl.DataContext>
 		<viewModels:SynologyViewModel/>
     </UserControl.DataContext>
+	<UserControl.Resources>
+	</UserControl.Resources>
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <TextBlock TextAlignment="Center" Text="{Binding Name}"/>
 		<TextBlock TextAlignment="Center" Text="{Binding IsConnected}"/>
 		<TextBlock TextAlignment="Center" Text="{Binding ErrorCode}"/>
 
+        <Grid>
+	        <ProgressBar Height="20" HorizontalAlignment="Stretch" Maximum="{Binding TotalRam}" Value="{Binding CurrentRam}"/>
+	        <TextBlock TextAlignment="Center" Text="{Binding RamText}"/>
+        </Grid>
+        
 		<TextBlock TextAlignment="Center" Text="{Binding Cpu}"/>
-		<TextBlock TextAlignment="Center" Text="{Binding Ram}"/>
 		<TextBlock TextAlignment="Center" Text="{Binding Network}"/>
-		<TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{Binding Path}"/>
 	</StackPanel>
 </UserControl>
