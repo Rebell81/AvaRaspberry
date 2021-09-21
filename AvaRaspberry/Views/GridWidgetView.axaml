@@ -10,10 +10,17 @@
         <viewModels:GridWidgetViewModel/>
     </UserControl.DataContext>
     <Grid ShowGridLines="True" ColumnDefinitions="*,*,*" RowDefinitions="*,*,*">
-        <views:SynologyView Grid.Column="0" Grid.Row="0" ></views:SynologyView>
-        <views:EmptyWidgetView Grid.Column="0" Grid.Row="1" ></views:EmptyWidgetView>
+        <views:PcView Grid.Column="0" Grid.Row="0" >
+            <views:PcView.DataContext>
+                <viewModels:SynologyViewModel></viewModels:SynologyViewModel>
+            </views:PcView.DataContext>
+        </views:PcView>
+        <views:PcView Grid.Column="1" Grid.Row="0" >
+            <views:PcView.DataContext>
+                <viewModels:PiViewModel></viewModels:PiViewModel>
+            </views:PcView.DataContext>
+        </views:PcView>
         <views:EmptyWidgetView Grid.Column="0" Grid.Row="2" ></views:EmptyWidgetView>
-        <views:EmptyWidgetView Grid.Column="1" Grid.Row="0" ></views:EmptyWidgetView>
         <views:EmptyWidgetView Grid.Column="1" Grid.Row="1" ></views:EmptyWidgetView>
         <views:EmptyWidgetView Grid.Column="1" Grid.Row="2" ></views:EmptyWidgetView>
         <views:EmptyWidgetView Grid.Column="2" Grid.Row="0" ></views:EmptyWidgetView>

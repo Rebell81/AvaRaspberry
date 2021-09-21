@@ -1,23 +1,18 @@
-﻿using System;
-using AvaRaspberry.Extenstion;
-using Newtonsoft.Json;
-using ReactiveUI;
 using System.Threading.Tasks;
-using SynologyClient;
 
 namespace AvaRaspberry.ViewModels
 {
-    public class SynologyViewModel : IDataPc
+    public class PiViewModel : IDataPc
     {
-        public SynologyViewModel()
+        public PiViewModel()
         {
-            Name = "Falcon";
+            Name = "Pi";
             Task.Factory.StartNew(UpdateAsync);
         }
 
         private void UpdateAsync()
         {
-            Start(new SynologyCommunicator());
+            Start(new PiCommunicator());
         }
 
         private void Start(IPcCommunicator api)
@@ -34,7 +29,7 @@ namespace AvaRaspberry.ViewModels
                         CurrentRam = (info.Data.Memory.total_real - info.Data.Memory.avail_real) * 1024;
 
                         CurrentCpu = info.Data.cpu.system_load
-                                                              + info.Data.cpu.user_load;
+                                     + info.Data.cpu.user_load;
                         
                         CpuText = $"{CurrentCpu}%";
                         

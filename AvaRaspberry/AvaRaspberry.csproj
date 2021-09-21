@@ -21,7 +21,7 @@
     <ProjectReference Include="..\SYno\SYno.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Views\SynologyView.axaml.cs">
+    <Compile Update="Views\PcView.axaml.cs">
       <DependentUpon>SynologyView.axaml</DependentUpon>
     </Compile>
     <Compile Update="Views\SynologyView.axaml.cs">
@@ -30,6 +30,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json.gpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

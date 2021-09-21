@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace AvaRaspberry.Views
 {
-    public class SynologyView : UserControl
+    public class PcView : UserControl
     {
-        public SynologyView()
+        public PcView()
         {
             InitializeComponent();
         }
