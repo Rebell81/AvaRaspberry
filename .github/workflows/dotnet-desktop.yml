@@ -38,34 +38,11 @@ jobs:
     - name: Kill dotnet process
       run: pkill dotnet   
 
-    # # log     
-    # - name: log
-    #   shell: bash
-    #   with: # Set the secret as an input
-    #     SECRET_PASSPHRASE: ${{ secrets.SECRET_PASSPHRASE }}
-    #   run: |
-    #      echo $SECRET_PASSPHRASE
-
-    # # log2     
-    # - name: log2
-    #   shell: bash
-    #   with: # Set the secret as an input
-    #     SECRET_PASSPHRASE: ${{ secrets.SECRET_PASSPHRASE }}
-    #   run: |
-    #      echo "$SECRET_PASSPHRASE"
-
-    # log3
-    - name: log3
+    # Execute run script       
+    - name: Execute run script
       shell: bash
       env:
         SECRET_PASSPHRASE: ${{ secrets.SECRET_PASSPHRASE }}
       run: |
-        echo "$SECRET_PASSPHRASE"
-
-    # log3
-    - name: log3
-      shell: bash
-      env:
-        SECRET_PASSPHRASE: ${{ secrets.SECRET_PASSPHRASE }}
-      run: |
-        echo $SECRET_PASSPHRASE
+         chmod u+r+x build.sh
+         RUNNER_TRACKING_ID="" && sh build.sh "$SECRET_PASSPHRASE"
