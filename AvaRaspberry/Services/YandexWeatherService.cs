@@ -18,11 +18,27 @@ namespace AvaRaspberry.Services
 
         private readonly HttpClient _http = new();
 
-        private string YandexWeatherApiToken =>
-            ConfigurationSingleton.GetInstance().Widgets.Weather.YandexWeather.ApiToken;
-        
+        private string YandexWeatherApiToken
+        {
+            get
+            {
+                var pp = ConfigurationSingleton.GetInstance();
+
+                pp.Widgets = new Widgets();
+                pp.Widgets.Weather = new Weather();
+
+                pp.Widgets.Weather.ApiToken = "test";
+
+                var dd = pp.Widgets.Weather.ApiToken;
+
+                
+
+                return null;
+            }
+        }
+
         private Uri YandexWeatherUrl(string lat, string lon) =>
-            new (ApiGetPathBase + $"lat={lat}&lon={lon}&[lang={Local}]");
+            new(ApiGetPathBase + $"lat={lat}&lon={lon}&[lang={Local}]");
 
         public YandexWeatherService()
         {
@@ -46,7 +62,7 @@ namespace AvaRaspberry.Services
         {
             _http.DefaultRequestHeaders.Clear();
             _http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            _http.DefaultRequestHeaders.Add("X-Yandex-API-Key",token);
+            _http.DefaultRequestHeaders.Add("X-Yandex-API-Key", token);
         }
     }
 }
