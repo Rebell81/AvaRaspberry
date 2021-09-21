@@ -10,7 +10,7 @@
         <viewModels:GridWidgetViewModel/>
     </UserControl.DataContext>
     <Grid ShowGridLines="True" ColumnDefinitions="*,*,*" RowDefinitions="*,*,*">
-        <views:WeatherWidgetView Grid.Column="0" Grid.Row="0" ></views:WeatherWidgetView>
+        <views:SynologyView Grid.Column="0" Grid.Row="0" ></views:SynologyView>
         <views:EmptyWidgetView Grid.Column="0" Grid.Row="1" ></views:EmptyWidgetView>
         <views:EmptyWidgetView Grid.Column="0" Grid.Row="2" ></views:EmptyWidgetView>
         <views:EmptyWidgetView Grid.Column="1" Grid.Row="0" ></views:EmptyWidgetView>

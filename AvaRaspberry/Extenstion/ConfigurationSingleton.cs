@@ -21,11 +21,21 @@ namespace AvaRaspberry.Extenstion
 
             _instance = new ConfigurationSingleton()
             {
-                Widgets = configuration.GetSection("Widgets").Get<Widgets>()
+                Widgets = configuration.GetSection(nameof(Widgets)).Get<Widgets>()
             };
 
             return _instance;
         }
+
+        public static ConfigurationSingleton Instance
+        {
+            get
+            {
+                if (_instance != null) return _instance;
+                return GetInstance();
+            }
+        }
+
 
         public Widgets Widgets { get; set; }
     }
