@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using AvaRaspberry.Extenstion;
 using AvaRaspberry.Models;
 using AvaRaspberry.Services;
 using ReactiveUI;
@@ -10,11 +11,12 @@ namespace AvaRaspberry.ViewModels
         private readonly YandexWeatherService _weatherService = new();
         
         private WeatherModel _weatherModel = new("Unknown", 0);
+        private string name;
 
-        public WeatherModel WeatherModel
+        public string Name
         {
-            get => _weatherModel;
-            private set => this.RaiseAndSetIfChanged(ref _weatherModel, value);
+            get => name;
+            private set => this.RaiseAndSetIfChanged(ref name, value);
         }
 
 
@@ -25,9 +27,9 @@ namespace AvaRaspberry.ViewModels
 
         private async Task UpdateForecast()
         {
-            var yaWeatherResponse = await _weatherService.GetByCoordinate();
+            var pp = ConfigurationSingleton.GetInstance();
 
-            WeatherModel = new WeatherModel(yaWeatherResponse.Info.Tzinfo.Name, yaWeatherResponse.Fact.Temp);
+            Name = pp.Widgets.Synology.User;
         }
     }
 }

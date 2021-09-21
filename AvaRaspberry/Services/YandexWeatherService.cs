@@ -24,15 +24,6 @@ namespace AvaRaspberry.Services
             {
                 var pp = ConfigurationSingleton.GetInstance();
 
-                pp.Widgets = new Widgets();
-                pp.Widgets.Weather = new Weather();
-
-                pp.Widgets.Weather.ApiToken = "test";
-
-                var dd = pp.Widgets.Weather.ApiToken;
-
-                
-
                 return null;
             }
         }

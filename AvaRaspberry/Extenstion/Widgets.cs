@@ -1,13 +1,15 @@
 ﻿#pragma warning disable 8618
 namespace AvaRaspberry.Extenstion
 {
-    public class Weather
+    public class Synology
     {
-        public string ApiToken { get; set; }
+        public string User { get; set; }
+        public string Password { get; set; }
+
     }
 
     public class Widgets
     {
-        public Weather Weather { get; set; } = new Weather();
+        public Synology Synology { get; set; }
     }
 }

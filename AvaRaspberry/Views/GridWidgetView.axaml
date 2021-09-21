@@ -10,8 +10,8 @@
         <viewModels:GridWidgetViewModel/>
     </UserControl.DataContext>
     <Grid ShowGridLines="True" ColumnDefinitions="*,*,*" RowDefinitions="*,*,*">
-		<views:EmptyWidgetView Grid.Column="0" Grid.Row="0" ></views:EmptyWidgetView>
-		<views:EmptyWidgetView Grid.Column="0" Grid.Row="1" ></views:EmptyWidgetView>
+        <views:WeatherWidgetView Grid.Column="0" Grid.Row="0" ></views:WeatherWidgetView>
+        <views:EmptyWidgetView Grid.Column="0" Grid.Row="1" ></views:EmptyWidgetView>
         <views:EmptyWidgetView Grid.Column="0" Grid.Row="2" ></views:EmptyWidgetView>
         <views:EmptyWidgetView Grid.Column="1" Grid.Row="0" ></views:EmptyWidgetView>
         <views:EmptyWidgetView Grid.Column="1" Grid.Row="1" ></views:EmptyWidgetView>
