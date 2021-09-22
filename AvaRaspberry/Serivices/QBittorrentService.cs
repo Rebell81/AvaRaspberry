@@ -4,7 +4,6 @@ using AvaRaspberry.Extenstion;
 using AvaRaspberry.Interfaces;
 using AvaRaspberry.Models.Torrent;
 using qBittorrent.qBittorrentApi;
-using qBittorrentSharp;
 
 namespace AvaRaspberry.Serivices
 {

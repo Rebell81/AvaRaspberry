@@ -1,0 +1,3 @@
+[submodule "qBittorrent"]
+	path = qBittorrent
+	url = https://github.com/Rebell81/qBittorrentApi.git
