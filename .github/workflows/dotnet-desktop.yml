@@ -20,7 +20,7 @@ jobs:
       with:
         fetch-depth: 0
         
-    - name: sub
+    - name: init submodules
       shell: bash
       run: git submodule update --init --recursive
         
@@ -42,6 +42,11 @@ jobs:
     - name: Kill dotnet process
       run: pkill dotnet   
 
+    - name: Sleep for 30 seconds
+      uses: jakejarvis/wait-action@master
+      with:
+        time: '30s'
+    
     # Execute run script       
     - name: Execute run script
       shell: bash
