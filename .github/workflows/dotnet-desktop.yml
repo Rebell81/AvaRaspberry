@@ -43,9 +43,9 @@ jobs:
       run: pkill dotnet   
 
     - name: Sleep for 30 seconds
-      uses: jakejarvis/wait-action@master
+      uses: whatnick/wait-action@v0.1.2
       with:
-        time: '30s'
+        time: '20s'
     
     # Execute run script       
     - name: Execute run script
