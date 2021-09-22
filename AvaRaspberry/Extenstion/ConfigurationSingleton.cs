@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using AvaRaspberry.Models;
+using Microsoft.Extensions.Configuration;
+using System.Linq;
 #pragma warning disable 8618
 
 namespace AvaRaspberry.Extenstion
@@ -31,6 +33,19 @@ namespace AvaRaspberry.Extenstion
             {
                 Widgets = configuration.GetSection(nameof(Widgets)).Get<Widgets>()
             };
+
+            _instance.Widgets.Torrents = configuration.GetSection($"{nameof(Widgets)}:{nameof(Models.Widgets.Torrents)}")
+                     .GetChildren()
+                     .ToList()
+                     .Select(x => new TorrentConfig
+                     {
+                         User = x.GetValue<string>(nameof(TorrentConfig.User)),
+                         Password = x.GetValue<string>(nameof(TorrentConfig.Password)),
+                         Host = x.GetValue<string>(nameof(TorrentConfig.Host)),
+                         Port = x.GetValue<string>(nameof(TorrentConfig.Port)),
+                         SSL = x.GetValue<bool>(nameof(TorrentConfig.SSL)),
+                     }).ToList();
+
 
             return _instance;
         }

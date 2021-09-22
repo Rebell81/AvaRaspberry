@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using AvaRaspberry.Extenstion;
 using AvaRaspberry.Interfaces;
+using AvaRaspberry.Models;
 using AvaRaspberry.Models.Torrent;
 using qBittorrent.qBittorrentApi;
 
@@ -11,12 +11,10 @@ namespace AvaRaspberry.Serivices
     {
         private Api _api;
 
-        public QBittorrentService()
+        public QBittorrentService(TorrentConfig config)
         {
-
-            var config = ConfigurationSingleton.Instance.Widgets.Qb;
-
-            var creds = new ServerCredential(new Uri($"https://{config.Host}:{config.Port}"), config.User, config.Password);
+            var protocol = config.SSL ? "https" : "http";
+            var creds = new ServerCredential(new Uri($"{protocol}://{config.Host}:{config.Port}"), config.User, config.Password);
             _api = new Api(creds);
 
         }

@@ -6,5 +6,7 @@ namespace AvaRaspberry.Interfaces
         public string Password { get; set; }
         public string Host { get; set; }
         public string Port { get; set; }
+        public bool SSL { get; set; }
+
     }
 }

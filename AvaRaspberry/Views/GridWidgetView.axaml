@@ -15,12 +15,8 @@
                 <viewModels:SynologyViewModel></viewModels:SynologyViewModel>
             </views:PcView.DataContext>
         </views:PcView>
-        <views:PcView Grid.Column="1" Grid.Row="0" >
-            <views:PcView.DataContext>
-                <viewModels:PiViewModel></viewModels:PiViewModel>
-            </views:PcView.DataContext>
-        </views:PcView>
-        <views:TorrentView Grid.Column="2" Grid.Row="0" DataContext="{Binding QbTorrentViewModel}" />      
+		<views:TorrentView Grid.Column="1" Grid.Row="0" DataContext="{Binding QbTorrentViewModelLocal}" />
+		<views:TorrentView Grid.Column="2" Grid.Row="0" DataContext="{Binding QbTorrentViewModel}" />
 		<views:EmptyWidgetView Grid.Column="0" Grid.Row="2" ></views:EmptyWidgetView>
         <views:EmptyWidgetView Grid.Column="1" Grid.Row="1" ></views:EmptyWidgetView>
         <views:EmptyWidgetView Grid.Column="1" Grid.Row="2" ></views:EmptyWidgetView>

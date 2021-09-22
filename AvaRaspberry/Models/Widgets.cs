@@ -1,7 +1,7 @@
 ﻿using AvaRaspberry.Interfaces;
+using System.Collections.Generic;
 
-#pragma warning disable 8618
-namespace AvaRaspberry.Extenstion
+namespace AvaRaspberry.Models
 {
     public class Synology : IUserPassHostPort
     {
@@ -9,19 +9,21 @@ namespace AvaRaspberry.Extenstion
         public string Password { get; set; }
         public string Host { get; set; }
         public string Port { get; set; }
+        public bool SSL { get; set; }
     }
-    
-    public class Qb : IUserPassHostPort
+
+    public class TorrentConfig : IUserPassHostPort
     {
         public string User { get; set; }
         public string Password { get; set; }
         public string Host { get; set; }
         public string Port { get; set; }
+        public bool SSL { get; set; }
     }
 
     public class Widgets
     {
         public Synology Synology { get; set; }
-        public Qb Qb { get; set; }
+        public List<TorrentConfig> Torrents { get; set; }
     }
 }
