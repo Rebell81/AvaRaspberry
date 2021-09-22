@@ -43,7 +43,7 @@ jobs:
       run: pkill dotnet   
 
     - name: Sleep for 30 seconds
-      uses: whatnick/wait-action@v0.1.2
+      uses: whatnick/wait-action@master
       with:
         time: '20s'
     
