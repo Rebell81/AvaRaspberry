@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
@@ -8,7 +7,7 @@ namespace AvaRaspberry.Models.Torrent
 {
     public class Base : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
@@ -18,7 +17,7 @@ namespace AvaRaspberry.Models.Torrent
         
         protected void RaiseAndSetIfChanged<TObj>(ref TObj backingField,
             TObj newValue,
-            [CallerMemberName] string? propertyName = null)
+            [CallerMemberName] string propertyName = null)
         {
             if (propertyName is null)
             {

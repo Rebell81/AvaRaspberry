@@ -1,32 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AvaRaspberry.Extenstion;
-using Newtonsoft.Json;
 using ReactiveUI;
 using System.Threading.Tasks;
 using Avalonia.Microcharts;
+using AvaRaspberry.Serivices;
 using SkiaSharp;
-using SynologyClient;
 
 namespace AvaRaspberry.ViewModels
 {
     public class SynologyViewModel : IDataPc
     {
-        private List<Entry> _entriesTx = new List<Entry>();
-        private List<Entry> _entriesRx = new List<Entry>();
+        private List<Tuple<DateTime, Entry>> _entriesTx = new List<Tuple<DateTime, Entry>>();
+        private List<Tuple<DateTime, Entry>> _entriesRx = new List<Tuple<DateTime, Entry>>();
+        private readonly IPcCommunicator _communicator;
 
         private LineChart _chartTx, _chartRx;
 
-        public SynologyViewModel()
+        public SynologyViewModel(IPcCommunicator communicator)
         {
             Name = "Falcon";
-            Task.Factory.StartNew(UpdateAsync);
-        }
-
-        private void UpdateAsync()
-        {
-            Start(new SynologyCommunicator());
+            Start();
+            _communicator = communicator;
         }
 
         public LineChart ChartRx
@@ -41,7 +36,7 @@ namespace AvaRaspberry.ViewModels
             protected set => this.RaiseAndSetIfChanged(ref _chartTx, value);
         }
 
-        private void Start(IPcCommunicator api)
+        private void Start()
         {
             Task.Factory.StartNew(async () =>
             {
@@ -49,7 +44,7 @@ namespace AvaRaspberry.ViewModels
                 {
                     try
                     {
-                        var info = api.GetUtilization();
+                        var info = _communicator.GetUtilization();
 
                         TotalRam = info.Data.Memory.total_real * 1024;
                         CurrentRam = (info.Data.Memory.total_real - info.Data.Memory.avail_real) * 1024;
@@ -72,8 +67,10 @@ namespace AvaRaspberry.ViewModels
                             max = array.Max(x => x.Value);
                         }
 
-                        ProcessEntry(_entriesTx, info.Data.Network[0].tx, SKColor.Parse("#66BF11"),max, out var chartTx);
-                        ProcessEntry(_entriesRx, info.Data.Network[0].rx, SKColor.Parse("#385AE3"),max, out var chartRx);
+                        ProcessEntry(ref _entriesTx, info.Data.Network[0].tx, SKColor.Parse("#66BF11"), max,
+                            DateTime.Now.AddSeconds(-30), out var chartTx);
+                        ProcessEntry(ref _entriesRx, info.Data.Network[0].rx, SKColor.Parse("#385AE3"), max,
+                            DateTime.Now.AddSeconds(-30), out var chartRx);
 
                         ChartTx = chartTx;
                         ChartRx = chartRx;

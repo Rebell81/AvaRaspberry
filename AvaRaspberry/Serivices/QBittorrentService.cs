@@ -7,26 +7,26 @@ using qBittorrent.qBittorrentApi;
 
 namespace AvaRaspberry.Serivices
 {
-    public class QBittorrentService : ITorrentComunicator
+    public class QBittorrentService : INetworkCommunicator
     {
         private Api _api;
 
         public QBittorrentService(TorrentConfig config)
         {
-            var protocol = config.SSL ? "https" : "http";
+            var protocol = config.Ssl ? "https" : "http";
             var creds = new ServerCredential(new Uri($"{protocol}://{config.Host}:{config.Port}"), config.User, config.Password);
             _api = new Api(creds);
 
         }
 
-        public async Task<TorrentClientStatistic> GetStatisticData()
+        public async Task<NetworkStatistic> GetNetworkStatisticData()
         {
             try
             {
                 var data = await _api.GetTransferInfo();
                 
 
-                return new TorrentClientStatistic
+                return new NetworkStatistic
                 {
                     TotalRx = data.dl_info_speed,
                     TotalTx = data.up_info_speed,

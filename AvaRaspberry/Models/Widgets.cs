@@ -9,7 +9,7 @@ namespace AvaRaspberry.Models
         public string Password { get; set; }
         public string Host { get; set; }
         public string Port { get; set; }
-        public bool SSL { get; set; }
+        public bool Ssl { get; set; }
     }
 
     public class TorrentConfig : IUserPassHostPort
@@ -18,7 +18,7 @@ namespace AvaRaspberry.Models
         public string Password { get; set; }
         public string Host { get; set; }
         public string Port { get; set; }
-        public bool SSL { get; set; }
+        public bool Ssl { get; set; }
     }
 
     public class Widgets

@@ -1,18 +1,23 @@
 using qBittorrent.qBittorrentApi;
-using ReactiveUI;
 
 namespace AvaRaspberry.Models.Torrent
 {
-    public class TorrentClientStatistic : Base
+    public class NetworkStatistic : Base
     {
 
         private long _totalRx, _totalTx, _totalRxSession, _totalTxSession, _dl_rate_limit,
             _up_rate_limit, _dht_nodes, _refresh_interval;
 
         private bool _queueing, _use_alt_speed_limits;
-
+        private string _device;
         private connection_status _connection_status;
 
+        public string Device
+        {
+            get => _device;
+            set => RaiseAndSetIfChanged(ref _device, value);
+        }
+        
         /// <summary>
         /// Global download rate (bytes/s)
         /// </summary>

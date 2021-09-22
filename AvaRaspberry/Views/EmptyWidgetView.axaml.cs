@@ -1,8 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace AvaRaspberry.Views
 {

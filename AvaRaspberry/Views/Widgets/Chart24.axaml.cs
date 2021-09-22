@@ -1,11 +1,11 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace AvaRaspberry.Views
+namespace AvaRaspberry.Views.Widgets
 {
-    public class TorrentView : UserControl
+    public class Chart24 : UserControl
     {
-        public TorrentView()
+        public Chart24()
         {
             InitializeComponent();
         }

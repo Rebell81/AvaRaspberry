@@ -1,7 +1,4 @@
-﻿using System.Configuration;
-using System.Runtime.InteropServices;
-
-namespace SynologyClient
+﻿namespace SynologyClient
 {
     public class AppSettingsClientConfig : ISynologyClientConfig
     {

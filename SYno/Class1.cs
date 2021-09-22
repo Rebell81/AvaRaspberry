@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SYno
+﻿namespace SYno
 {
     public class Class1
     {

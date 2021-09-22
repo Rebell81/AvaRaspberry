@@ -12,7 +12,6 @@
 	<UserControl.Resources>
 		<converters:BytesToUserFriendlyText x:Key="BytesToUserFriendlySpeed" IsSpeed="True" />
 		<converters:BytesToUserFriendlyText x:Key="BytesToUserFriendlySize" IsSpeed="False" />
-
 	</UserControl.Resources>
 	<Grid Background="DarkGray" >
 		<controls:RxTxCharts/>

@@ -9,17 +9,7 @@ namespace AvaRaspberry
     public class App : Application
     {
 
-        public static ServiceProvider? ServiceProvider;
         public static int GlobalDelay = 1500;
-        public App()
-        {
-            var serviceCollection = new ServiceCollection();
-            serviceCollection.AddLogging();
-
-            ServiceProvider = serviceCollection.BuildServiceProvider();
-
-        }
-
 
         public override void Initialize()
         {

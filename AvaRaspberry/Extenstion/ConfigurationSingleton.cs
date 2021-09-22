@@ -43,7 +43,7 @@ namespace AvaRaspberry.Extenstion
                          Password = x.GetValue<string>(nameof(TorrentConfig.Password)),
                          Host = x.GetValue<string>(nameof(TorrentConfig.Host)),
                          Port = x.GetValue<string>(nameof(TorrentConfig.Port)),
-                         SSL = x.GetValue<bool>(nameof(TorrentConfig.SSL)),
+                         Ssl = x.GetValue<bool>(nameof(TorrentConfig.Ssl)),
                      }).ToList();
 
 
