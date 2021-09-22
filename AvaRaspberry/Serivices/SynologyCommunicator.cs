@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using AvaRaspberry.Extenstion;
@@ -47,15 +48,23 @@ namespace AvaRaspberry.Serivices
             {
                 if (_api is null) return new NetworkStatistic();
 
-                var info = _api.GetUtilization().Data.Network;
-                var total = info.FirstOrDefault();
-                return new NetworkStatistic()
+                try
                 {
-                    TotalRx = total?.rx ?? 0,
-                    TotalTx = total?.tx ?? 0,
-                    Connection_status = connection_status.connected,
-                    Device = total?.device
-                };
+                    var info = _api.GetUtilization().Data.Network;
+                    var total = info.FirstOrDefault();
+                    return new NetworkStatistic()
+                    {
+                        TotalRx = total?.rx ?? 0,
+                        TotalTx = total?.tx ?? 0,
+                        Connection_status = connection_status.connected,
+                        Device = total?.device
+                    };
+                }
+                catch (Exception e)
+                {
+                    return new();
+                }
+               
             });
         }
 

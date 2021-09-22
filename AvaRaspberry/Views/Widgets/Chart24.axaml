@@ -7,9 +7,9 @@
              xmlns:viewmodels="clr-namespace:AvaRaspberry.ViewModels"
              d:DataContext="{viewmodels:NetworkChartsViewModel}"
              x:Class="AvaRaspberry.Views.Widgets.Chart24">
-    <Grid Background="DarkGray" >
+    <Grid Background="Black" >
        <controls:RxTxCharts />
-       <TextBlock TextAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Center"
+       <TextBlock Foreground="DarkGray" TextAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Center"
                   Text="{Binding WidgetTitle}" Margin="0,20"/>
    </Grid>
 </UserControl>

@@ -1,4 +1,3 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
@@ -10,11 +9,11 @@ namespace AvaRaspberry.Views
         {
             InitializeComponent();
 #if DEBUG
-            this.AttachDevTools();
+            Avalonia.DevToolsExtensions.AttachDevTools(this);
             WindowState = WindowState.Normal;
 #else
             WindowState = WindowState.FullScreen;
-            Cursor = new Cursor(StandardCursorType.None);
+            Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.None);
             SystemDecorations = SystemDecorations.None;
 #endif
         }
