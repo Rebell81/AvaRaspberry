@@ -3,4 +3,4 @@
 	url = https://github.com/Rebell81/qBittorrentApi.git
 [submodule "Avalonia.Microcharts"]
 	path = Avalonia.Microcharts
-	url = git@github.com:Rebell81/Avalonia.Microcharts.git
+	url = https://github.com/Rebell81/Avalonia.Microcharts.git
