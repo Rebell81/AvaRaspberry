@@ -1,4 +1,5 @@
-﻿using AvaRaspberry.Models;
+﻿using System;
+using AvaRaspberry.Models;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
 #pragma warning disable 8618
@@ -15,6 +16,8 @@ namespace AvaRaspberry.Extenstion
 
         public static ConfigurationSingleton GetInstance()
         {
+            Console.WriteLine("GetInstance Start");
+
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse
             if (_instance != null) return _instance;
 #if DEBUG
@@ -27,6 +30,7 @@ namespace AvaRaspberry.Extenstion
                 .Build();
 #endif
 
+            Console.WriteLine("GetInstance mid");
 
 
             _instance = new ConfigurationSingleton()
@@ -46,6 +50,7 @@ namespace AvaRaspberry.Extenstion
                          Ssl = x.GetValue<bool>(nameof(TorrentConfig.Ssl)),
                      }).ToList();
 
+            Console.WriteLine("GetInstance end");
 
             return _instance;
         }

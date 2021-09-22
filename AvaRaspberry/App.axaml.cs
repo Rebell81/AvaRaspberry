@@ -1,3 +1,4 @@
+using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -13,7 +14,10 @@ namespace AvaRaspberry
 
         public override void Initialize()
         {
+            Console.WriteLine("Initialize Start");
             AvaloniaXamlLoader.Load(this);
+            Console.WriteLine("Initialize End");
+
         }
 
         public override void OnFrameworkInitializationCompleted()

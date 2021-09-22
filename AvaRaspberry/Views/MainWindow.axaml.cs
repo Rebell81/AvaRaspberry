@@ -1,3 +1,4 @@
+using System;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
@@ -7,7 +8,11 @@ namespace AvaRaspberry.Views
     {
         public MainWindow()
         {
+            Console.WriteLine("MainWindow S");
+
             InitializeComponent();
+            Console.WriteLine("MainWindow m");
+
 #if DEBUG
             Avalonia.DevToolsExtensions.AttachDevTools(this);
             WindowState = WindowState.Normal;
@@ -16,6 +21,8 @@ namespace AvaRaspberry.Views
             Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.None);
             SystemDecorations = SystemDecorations.None;
 #endif
+            Console.WriteLine("MainWindow e");
+
         }
 
         private void InitializeComponent()
