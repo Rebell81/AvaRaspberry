@@ -7,6 +7,6 @@
              Background="#DCDCDC">
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Image Source="/Assets/empty_widget.png" Width="48" Height="48"/>
-        <TextBlock TextAlignment="Center" Text="Виджет отсутствует" />
+        <TextBlock TextAlignment="Center" Text="{Binding Text}" />
     </StackPanel>
 </UserControl>
