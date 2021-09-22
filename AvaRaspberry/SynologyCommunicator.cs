@@ -11,14 +11,14 @@ namespace AvaRaspberry
 
         public SynologyCommunicator()
         {
-            var synology = ConfigurationSingleton.Instance.Widgets.Synology;
+            var config = ConfigurationSingleton.Instance.Widgets.Synology;
 
 
             var dd = new AppSettingsClientConfig
             {
-                User = synology.User,
-                Password = synology.Password,
-                ApiBaseAddressAndPathNoTrailingSlash = "https://jsb.by:5001/webapi"
+                User = config.User,
+                Password = config.Password,
+                ApiBaseAddressAndPathNoTrailingSlash = $"https://{config.Host}:{config.Port}/webapi"
             };
 
             var session = new SynologySession(dd);

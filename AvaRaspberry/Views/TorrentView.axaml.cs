@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace AvaRaspberry.Views
 {
-    public class QBittorrentView : UserControl
+    public class TorrentView : UserControl
     {
-        public QBittorrentView()
+        public TorrentView()
         {
             InitializeComponent();
         }

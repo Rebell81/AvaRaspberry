@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvaRaspberry", "AvaRaspberry\AvaRaspberry.csproj", "{CF5819AD-C05D-4D6B-9253-2A7B7E78ADDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SYno", "SYno\SYno.csproj", "{D26B6FD1-C216-4354-A293-0CD9C79AE17B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SYno", "SYno\SYno.csproj", "{D26B6FD1-C216-4354-A293-0CD9C79AE17B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "qBittorrent.qBittorrentApi", "qBittorrentApi\src\qBittorrent.qBittorrentApi\qBittorrent.qBittorrentApi.csproj", "{8E62CA06-DCDB-425A-B3D2-C8F0079E2B6E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D26B6FD1-C216-4354-A293-0CD9C79AE17B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D26B6FD1-C216-4354-A293-0CD9C79AE17B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D26B6FD1-C216-4354-A293-0CD9C79AE17B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E62CA06-DCDB-425A-B3D2-C8F0079E2B6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E62CA06-DCDB-425A-B3D2-C8F0079E2B6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E62CA06-DCDB-425A-B3D2-C8F0079E2B6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E62CA06-DCDB-425A-B3D2-C8F0079E2B6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

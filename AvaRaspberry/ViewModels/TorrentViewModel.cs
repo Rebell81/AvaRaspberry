@@ -5,17 +5,19 @@ using ReactiveUI;
 
 namespace AvaRaspberry.ViewModels
 {
-    public class TorrentViewModel : ViewModelBase
+    public class TorrentViewModel : WidgetViewModel
     {
         private readonly ITorrentComunicator _communicator;
         private readonly Task _updateTask;
         private TorrentClientStatistic? _torrentClientStatistic;
-        private const int GlobalDelay = 0;
+        private string _widgetTitle;
 
-        public TorrentViewModel(ITorrentComunicator communicator)
+
+        public TorrentViewModel(ITorrentComunicator communicator, string title)
         {
             _communicator = communicator;
             _updateTask = Task.Run(StartUpdate);
+            _widgetTitle = title;
         }
 
         public TorrentClientStatistic TorrentClientStatistic
@@ -24,13 +26,20 @@ namespace AvaRaspberry.ViewModels
             protected set => this.RaiseAndSetIfChanged(ref _torrentClientStatistic, value);
         }
 
+
+        public override string WidgetTitle
+        {
+            get => _widgetTitle;
+            set => this.RaiseAndSetIfChanged(ref _widgetTitle, value);
+        }
+
         private async Task StartUpdate()
         {
             while (true)
             {
                 try
                 {
-                    TorrentClientStatistic = _communicator.GetStatisticData();
+                    TorrentClientStatistic = await _communicator.GetStatisticData();
                 }
                 catch
                 {
@@ -38,7 +47,7 @@ namespace AvaRaspberry.ViewModels
                 }
                 finally
                 {
-                    await Task.Delay(GlobalDelay);
+                    await Task.Delay(App.GlobalDelay);
                 }
             }
         }

@@ -10,7 +10,7 @@ namespace AvaRaspberry
     {
 
         public static ServiceProvider? ServiceProvider;
-
+        public static int GlobalDelay = 1500;
         public App()
         {
             var serviceCollection = new ServiceCollection();

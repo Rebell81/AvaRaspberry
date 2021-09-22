@@ -15,9 +15,17 @@ namespace AvaRaspberry.Extenstion
         {
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse
             if (_instance != null) return _instance;
+#if DEBUG
             var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", true, true)
+               .AddJsonFile("appsettings.json", true, true)
+               .Build();
+#else
+ var configuration = new ConfigurationBuilder()
+                .AddJsonFile("/home/pi/appsettings.json", true, true)
                 .Build();
+#endif
+
+
 
             _instance = new ConfigurationSingleton()
             {
