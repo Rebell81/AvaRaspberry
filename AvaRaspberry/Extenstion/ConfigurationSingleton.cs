@@ -19,7 +19,7 @@ namespace AvaRaspberry.Extenstion
         {
             Console.WriteLine("GetInstance Start");
             var file = File.ReadAllText("/home/pi/Documents/appsettings.json");
-            Console.WriteLine(file);
+            //Console.WriteLine(file);
             Console.WriteLine("GetInstance Start2");
 
             try
@@ -30,9 +30,18 @@ namespace AvaRaspberry.Extenstion
                .AddJsonFile("appsettings.json", true, true)
                .Build();
 #else
-                var configuration = new ConfigurationBuilder()
-                    .AddJsonFile("/home/pi/Documents/appsettings.json", true, false)
-                    .Build();
+                Console.WriteLine("GetInstance 1");
+
+                var bulder = new ConfigurationBuilder();
+                Console.WriteLine("GetInstance 2");
+
+                    var filsse = bulder.AddJsonFile("/home/pi/Documents/appsettings.json",
+                            true, false);
+                    Console.WriteLine("GetInstance 3");
+
+                    var configuration = filsse.Build();
+                    Console.WriteLine("GetInstance 4");
+
 #endif
                 Console.WriteLine("GetInstance mid");
 
