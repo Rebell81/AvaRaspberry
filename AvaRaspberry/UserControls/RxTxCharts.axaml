@@ -7,12 +7,12 @@
              d:DataContext="{viewModels:SynologyViewModel}"
              xmlns:microcharts="clr-namespace:Avalonia.Microcharts;assembly=Avalonia.Microcharts"
              x:Class="AvaRaspberry.UserControls.RxTxCharts">
-   <Grid>
+   <Grid Margin="1,10">
        <microcharts:MicrochartControl HorizontalAlignment="Stretch"
                                       VerticalAlignment="Stretch"
-                                      Chart="{Binding ChartTx}" Margin="1,10" />
+                                      Chart="{Binding ChartTx}"  />
        <microcharts:MicrochartControl HorizontalAlignment="Stretch"
                                       VerticalAlignment="Stretch"
-                                      Chart="{Binding ChartRx}" Margin="1,10" />
+                                      Chart="{Binding ChartRx}" />
    </Grid>
 </UserControl>
