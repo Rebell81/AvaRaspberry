@@ -3,7 +3,7 @@ using ReactiveUI;
 
 namespace AvaRaspberry.ViewModels
 {
-    public class IDataPc : ViewModelBase
+    public class IDataPc : WidgetViewModel
     {
         private  string _name = string.Empty;
         private string _errorCode = string.Empty;
@@ -105,5 +105,6 @@ namespace AvaRaspberry.ViewModels
             return $"{size} {suffix}{ap2}";
         }
 
+        public override string WidgetTitle { get; set; }
     }
 }

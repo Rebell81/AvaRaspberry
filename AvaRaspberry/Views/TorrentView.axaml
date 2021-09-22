@@ -12,10 +12,17 @@
 		<converters:BytesToUserFriendlyText x:Key="BytesToUserFriendlySize" IsSpeed="False" />
 
 	</UserControl.Resources>
-	<Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+	<Grid Background="DarkGray"  Name="grid">
 
 
-		<microcharts:MicrochartControl HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Opacity="0.3" Chart="{Binding Chart}" Margin="0"/>
+		<microcharts:MicrochartControl HorizontalAlignment="Stretch" 
+		                               VerticalAlignment="Stretch"
+		                               Width="{Binding ElementName=grid, Path=Width}"
+		                               Chart="{Binding ChartTx}" Margin="1,10,1,1"/>
+		<microcharts:MicrochartControl HorizontalAlignment="Stretch" 
+		                               VerticalAlignment="Stretch"
+		                               Width="{Binding ElementName=grid, Path=Width}"
+		                               Chart="{Binding ChartRx}" Margin="1,10,1,1"/>
 
 		<TextBlock TextAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Center" Text="{Binding WidgetTitle}" Margin="0,20"/>
 

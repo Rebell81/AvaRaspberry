@@ -9,11 +9,14 @@ namespace AvaRaspberry.Views
     {
         public MainWindow()
         {
-            Cursor = new Cursor(StandardCursorType.None);
-            
             InitializeComponent();
 #if DEBUG
             this.AttachDevTools();
+            WindowState = WindowState.Normal;
+#else
+            WindowState = WindowState.FullScreen;
+            Cursor = new Cursor(StandardCursorType.None);
+            SystemDecorations = SystemDecorations.None;
 #endif
         }
 
