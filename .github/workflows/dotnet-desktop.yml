@@ -42,10 +42,9 @@ jobs:
     - name: Kill dotnet process
       run: pkill dotnet   
 
-    - name: Sleep for 30 seconds
-      uses: whatnick/wait-action@master
-      with:
-        time: '20s'
+    - name: Sleep
+      shell: bash
+      run: sleep 10s
     
     # Execute run script       
     - name: Execute run script
