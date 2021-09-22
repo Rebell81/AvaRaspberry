@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using AvaRaspberry.Models;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
@@ -17,38 +18,50 @@ namespace AvaRaspberry.Extenstion
         public static ConfigurationSingleton GetInstance()
         {
             Console.WriteLine("GetInstance Start");
+            var file = File.ReadAllText("/home/pi/Documents/appsettings.json");
+            Console.WriteLine(file);
+            Console.WriteLine("GetInstance Start2");
 
-            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-            if (_instance != null) return _instance;
+            try
+            {
+                if (_instance != null) return _instance;
 #if DEBUG
             var configuration = new ConfigurationBuilder()
                .AddJsonFile("appsettings.json", true, true)
                .Build();
 #else
- var configuration = new ConfigurationBuilder()
-                .AddJsonFile("/home/pi/appsettings.json", true, true)
-                .Build();
+                var configuration = new ConfigurationBuilder()
+                    .AddJsonFile("/home/pi/Documents/appsettings.json", true, false)
+                    .Build();
 #endif
+                Console.WriteLine("GetInstance mid");
 
-            Console.WriteLine("GetInstance mid");
+                
+                _instance = new ConfigurationSingleton()
+                {
+                    Widgets = configuration.GetSection(nameof(Widgets)).Get<Widgets>()
+                };
 
-
-            _instance = new ConfigurationSingleton()
+                _instance.Widgets.Torrents = configuration.GetSection($"{nameof(Widgets)}:{nameof(Models.Widgets.Torrents)}")
+                    .GetChildren()
+                    .ToList()
+                    .Select(x => new TorrentConfig
+                    {
+                        User = x.GetValue<string>(nameof(TorrentConfig.User)),
+                        Password = x.GetValue<string>(nameof(TorrentConfig.Password)),
+                        Host = x.GetValue<string>(nameof(TorrentConfig.Host)),
+                        Port = x.GetValue<string>(nameof(TorrentConfig.Port)),
+                        Ssl = x.GetValue<bool>(nameof(TorrentConfig.Ssl)),
+                    }).ToList();
+            }
+            catch (Exception e)
             {
-                Widgets = configuration.GetSection(nameof(Widgets)).Get<Widgets>()
-            };
+                Console.WriteLine(e);
+            }
 
-            _instance.Widgets.Torrents = configuration.GetSection($"{nameof(Widgets)}:{nameof(Models.Widgets.Torrents)}")
-                     .GetChildren()
-                     .ToList()
-                     .Select(x => new TorrentConfig
-                     {
-                         User = x.GetValue<string>(nameof(TorrentConfig.User)),
-                         Password = x.GetValue<string>(nameof(TorrentConfig.Password)),
-                         Host = x.GetValue<string>(nameof(TorrentConfig.Host)),
-                         Port = x.GetValue<string>(nameof(TorrentConfig.Port)),
-                         Ssl = x.GetValue<bool>(nameof(TorrentConfig.Ssl)),
-                     }).ToList();
+
+
+
 
             Console.WriteLine("GetInstance end");
 
