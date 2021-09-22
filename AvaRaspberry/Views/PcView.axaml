@@ -7,15 +7,13 @@
              Background="#B0E0E6"
              xmlns:microcharts="clr-namespace:Avalonia.Microcharts;assembly=Avalonia.Microcharts"
              x:Class="AvaRaspberry.Views.PcView">
-    <Grid Name="grid" Background="DarkGray">
-        <microcharts:MicrochartControl HorizontalAlignment="Stretch" 
+    <Grid Background="DarkGray">
+        <microcharts:MicrochartControl HorizontalAlignment="Stretch"
                                        VerticalAlignment="Stretch"
-                                       Width="{Binding ElementName=grid, Path=Width}"
-                                       Chart="{Binding ChartTx}" Margin="1,10,1,1"/>
-        <microcharts:MicrochartControl HorizontalAlignment="Stretch" 
+                                       Chart="{Binding ChartTx}" Margin="1,10,1,1" />
+        <microcharts:MicrochartControl HorizontalAlignment="Stretch"
                                        VerticalAlignment="Stretch"
-                                       Width="{Binding ElementName=grid, Path=Width}"
-                                       Chart="{Binding ChartRx}" Margin="1,10,1,1"/>
+                                       Chart="{Binding ChartRx}" Margin="1,10,1,1" />
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock TextAlignment="Center" Text="{Binding Name}" Margin="0,20" />
 
