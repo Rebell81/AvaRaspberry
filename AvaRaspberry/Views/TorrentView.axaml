@@ -22,7 +22,7 @@
 			</StackPanel>
 
 			<StackPanel Orientation="Horizontal" Margin="0,20"  HorizontalAlignment="Center">
-				<TextBlock Text="Traffic"  TextAlignment="Center"/>
+				<TextBlock Text="Session Traffic"  TextAlignment="Center"/>
 				<TextBlock FontWeight="Bold" Foreground="Blue" Margin="20,0,0,0" TextAlignment="Center" Text="{Binding TorrentClientStatistic.TotalRxSession, Converter={StaticResource BytesToUserFriendlySize}}"/>
 				<TextBlock FontWeight="Bold" Foreground="Green" Margin="20,0,0,0" TextAlignment="Center" Text="{Binding TorrentClientStatistic.TotalTxSession, Converter={StaticResource BytesToUserFriendlySize}}"/>
 			</StackPanel>
