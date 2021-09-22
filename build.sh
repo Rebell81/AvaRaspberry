@@ -15,6 +15,7 @@ cd AvaRaspberry/bin/Release/net5.0/ || exit
 # Decrypt AppSettings config with help Github Secrets 
 #gpg --quiet --batch --yes --decrypt --passphrase="$SECRET_PASSPHRASE" --output appsettings.json appsettings.json.gpg
 #gpg --batch --yes --passphrase-fd 0 -d appsettings.json.gpg > appsettings.json
+
 # Run
 ( dotnet AvaRaspberry.dll & )
 echo "Build and run project script is executed."

@@ -35,7 +35,7 @@ namespace AvaRaspberry.ViewModels
                 PointSize = 0,
                 Margin = 0,
                 MaxValue = max,
-                MinValue = -1
+                MinValue = 0
             };
         }
     }
