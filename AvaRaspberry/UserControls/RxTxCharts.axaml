@@ -8,11 +8,22 @@
              xmlns:microcharts="clr-namespace:Avalonia.Microcharts;assembly=Avalonia.Microcharts"
              x:Class="AvaRaspberry.UserControls.RxTxCharts">
    <Grid Margin="0,10">
-       <microcharts:MicrochartControl HorizontalAlignment="Stretch"
+	  
+
+
+	   <microcharts:MicrochartControl HorizontalAlignment="Stretch"
                                       VerticalAlignment="Stretch"
                                       Chart="{Binding ChartTx}"  />
        <microcharts:MicrochartControl HorizontalAlignment="Stretch"
                                       VerticalAlignment="Stretch"
                                       Chart="{Binding ChartRx}" />
+
+	   <microcharts:MicrochartControl HorizontalAlignment="Stretch"
+									VerticalAlignment="Stretch"
+									Chart="{Binding ChartLineMax}"  />
+
+	   <microcharts:MicrochartControl HorizontalAlignment="Stretch"
+								  VerticalAlignment="Stretch"
+								  Chart="{Binding ChartLineMedium}"  />
    </Grid>
 </UserControl>

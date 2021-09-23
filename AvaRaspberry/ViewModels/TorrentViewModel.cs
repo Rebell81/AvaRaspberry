@@ -10,8 +10,8 @@ namespace AvaRaspberry.ViewModels
     {
         private readonly Task _updateTask;
 
-        public TorrentViewModel(INetworkCommunicator communicator, string title, int seconds)
-            : base(communicator, seconds, App.TorrentMaxTx)
+        public TorrentViewModel(INetworkCommunicator communicator, string title, int seconds, long maxLine, long mediumLine)
+            : base(communicator, seconds, App.TorrentMaxTx, maxLine, mediumLine)
         {
             _updateTask = Task.Run(Process);
             WidgetTitle = title;

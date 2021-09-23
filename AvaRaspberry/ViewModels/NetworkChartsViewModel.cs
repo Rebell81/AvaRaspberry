@@ -19,7 +19,11 @@ namespace AvaRaspberry.ViewModels
         private List<Tuple<DateTime, Entry>> _tickedEntriesTx = new List<Tuple<DateTime, Entry>>();
         private List<Tuple<DateTime, Entry>> _tickedEntriesRx = new List<Tuple<DateTime, Entry>>();
 
-        private LineChart _chartTx, _chartRx;
+        private List<Entry> chartLineEntryMax = new List<Entry>();
+        private List<Entry> chartLineEntryMedium = new List<Entry>();
+
+
+        private LineChart _chartTx, _chartRx, _chartLineMax, _chartLineMedium;
         private readonly Task _updateTask;
 
         private readonly Task _processTask;
@@ -33,7 +37,7 @@ namespace AvaRaspberry.ViewModels
         {
         }
 
-        public NetworkChartsViewModel(INetworkCommunicator communicator, int seconds, long maxTx)
+        public NetworkChartsViewModel(INetworkCommunicator communicator, int seconds, long maxTx, long maxLine, long mediumLine)
         {
             Communicator = communicator;
             _updateTask = Task.Run(GetStats);
@@ -42,14 +46,77 @@ namespace AvaRaspberry.ViewModels
             _maxTx = maxTx;
             WidgetTitle = $"{TimeSpan.FromSeconds(seconds).TotalHours} h.";
 
-            //Chart = new LineChart() { Entries = this.Entries };
+            FillWithLine(chartLineEntryMax, maxLine, App.Red);
+            FillWithLine(chartLineEntryMedium, mediumLine, App.Purple);
+
+            MakeChart(chartLineEntryMax, chartLineEntryMedium);
         }
+
+        private void MakeChart(List<Entry> entriesMax, List<Entry> entriesMedium)
+        {
+            ChartLineMedium = new LineChart()
+            {
+                Entries = entriesMedium.ToArray(),
+                BackgroundColor = App.Tranparent,
+                PointSize = 0,
+                Margin = 0,
+                MaxValue = _maxTx,
+                MinValue = 0,
+                LineSize = 1,
+                PointMode = PointMode.None,
+                LineAreaAlpha = 0
+            };
+
+            ChartLineMax = new LineChart()
+            {
+                Entries = entriesMax.ToArray(),
+                BackgroundColor = App.Tranparent,
+                PointSize = 0,
+                Margin = 0,
+                MaxValue = _maxTx,
+                MinValue = 0,
+                LineAreaAlpha = 0,
+
+                LineSize = 1,
+                PointMode = PointMode.None
+            };
+        }
+
+
+        private void FillWithLine(List<Entry> entries, long value, SKColor color)
+        {
+            var entry = new Entry()
+            {
+                Value = value,
+                Color = color,
+            };
+
+            for (int i = 0; i <= 100; i++)
+            {
+                entries.Add(entry);
+            }
+        }
+
 
         public NetworkStatistic NetworkStatistic
         {
             get => _torrentClientStatistic ?? new NetworkStatistic();
             protected set => this.RaiseAndSetIfChanged(ref _torrentClientStatistic, value);
         }
+
+        public LineChart ChartLineMax
+        {
+            get => _chartLineMax;
+            protected set => this.RaiseAndSetIfChanged(ref _chartLineMax, value);
+        }
+
+        public LineChart ChartLineMedium
+        {
+            get => _chartLineMedium;
+            protected set => this.RaiseAndSetIfChanged(ref _chartLineMedium, value);
+        }
+
+
 
         public LineChart ChartRx
         {
@@ -62,7 +129,6 @@ namespace AvaRaspberry.ViewModels
             get => _chartTx;
             protected set => this.RaiseAndSetIfChanged(ref _chartTx, value);
         }
-
 
 
         private async Task GetStats()
@@ -156,6 +222,8 @@ namespace AvaRaspberry.ViewModels
                         MaxValue = _maxTx,
                         MinValue = 0
                     };
+
+
                 }
                 catch (Exception ex)
                 {
