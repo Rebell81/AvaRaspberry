@@ -33,7 +33,7 @@ namespace AvaRaspberry.Serivices
 
                     Console.WriteLine(data);
                     Debug.WriteLine(data);
-                    File.AppendAllText(_path, data);
+                    File.AppendAllText(_path+Environment.NewLine+Environment.NewLine, data);
                 }
             }
         }
