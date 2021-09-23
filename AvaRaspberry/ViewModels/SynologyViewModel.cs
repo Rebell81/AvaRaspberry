@@ -51,7 +51,7 @@ namespace AvaRaspberry.ViewModels
                     {
                         var info = _communicator.GetUtilization();
 
-                        if (info.Data != null)
+                        if (info!=null && info.Data != null)
                         {
 
 

@@ -150,19 +150,50 @@ namespace AvaRaspberry.ViewModels
             }
         }
 
+
         protected virtual async Task Process()
         {
+            //var entr2y = new Entry()
+            //{
+            //    Value = new Random().Next(100000, 500000),
+            //    Color = App.Blue
+            //};
+
+            //var entr22y = new Entry()
+            //{
+            //    Value = new Random().Next(100000, 500000),
+            //    Color = App.Green
+            //};
+
+            //_entriesTx.Add(new Tuple<DateTime, Entry>(DateTime.Now, entr2y));
+            //_entriesRx.Add(new Tuple<DateTime, Entry>(DateTime.Now, entr22y));
+
+            //for (var i = 0; i <= 100000; i++)
+            //{
+            //    var lst = _entriesTx.Last();
+            //    var entry = new Entry()
+            //    {
+            //        Value = new Random().Next(100000, 500000),
+            //        Color = App.Blue
+            //    };
+
+            //    _entriesTx.Add(new Tuple<DateTime, Entry>(lst.Item1.AddSeconds(1), entry));
+
+            //    var lst2 = _entriesRx.Last();
+            //    var entry2 = new Entry()
+            //    {
+            //        Value = new Random().Next(100000, 500000),
+            //        Color = App.Green
+            //    };
+
+            //    _entriesRx.Add(new Tuple<DateTime, Entry>(lst2.Item1.AddSeconds(1), entry2));
+            //}
+
+
             while (true)
             {
                 try
                 {
-                    //if (ChartTx?.Entries != null)
-                    //{
-                    //    var array = ChartTx.Entries.Concat(ChartRx.Entries);
-                    //    if (array.Count() > 0)
-                    //        max = array.Max(x => x.Value);
-                    //}
-
 
                     var perMin = false;
 
@@ -172,6 +203,7 @@ namespace AvaRaspberry.ViewModels
 
                     ProcessEntry(ref _entriesRx, NetworkStatistic.TotalRx,
                         SKColor.Parse("#385AE3"), DateTime.Now.AddSeconds(-_seconds), out _tickedEntriesRx);
+
 
                     if (_tickedEntriesRx.Count > 50)
                     {
@@ -189,13 +221,15 @@ namespace AvaRaspberry.ViewModels
 
                     if (_tickedEntriesTx.Count > 50 && perMin)
                     {
-                        perHour = ProcessPerHalfHour(ref _tickedEntriesTx, out _tickedEntriesTx);
+                        perHour = ProcessPerHalfHour(ref _tickedEntriesTx, out var tickedEntriesTx);
+                        _tickedEntriesTx = tickedEntriesTx;
                     }
 
 
                     if (perHour)
                     {
-                        ProcessPerHalfHour(ref _tickedEntriesRx, out _tickedEntriesRx);
+                        ProcessPerHalfHour(ref _tickedEntriesRx, out var tickedEntriesRx);
+                        _tickedEntriesRx = tickedEntriesRx;
                     }
 
 
@@ -210,6 +244,7 @@ namespace AvaRaspberry.ViewModels
                         PointSize = 0,
                         Margin = 0,
                         MaxValue = _maxTx,
+                        //MaxValue = _tickedEntriesTx.Max(x=>x.Item2.Value),
                         MinValue = 0
                     };
 
@@ -220,6 +255,7 @@ namespace AvaRaspberry.ViewModels
                         PointSize = 0,
                         Margin = 0,
                         MaxValue = _maxTx,
+                        //MaxValue = _tickedEntriesRx.Max(x => x.Item2.Value),
                         MinValue = 0
                     };
 
