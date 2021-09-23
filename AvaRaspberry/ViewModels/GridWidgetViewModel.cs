@@ -109,7 +109,7 @@ namespace AvaRaspberry.ViewModels
         {
             NetworkChartsViewModelFalcon = new NetworkChartsViewModel(
                 new QBittorrentService(ConfigurationSingleton.Instance.Widgets.Torrents.First()),
-                (int) TimeSpan.FromHours(24).TotalSeconds, App.TorrentMaxTx, App.TorrentMaxTxLine, App.TorrentMediumTxLine);
+                (int) TimeSpan.FromHours(24).TotalSeconds, App.TorrentMaxTx, App.TorrentMaxTxLine, App.TorrentMediumTxLine, true);
         }
     }
 }

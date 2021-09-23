@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Microcharts;
 using AvaRaspberry.Interfaces;
@@ -32,13 +34,14 @@ namespace AvaRaspberry.ViewModels
         protected int _seconds;
         private long _maxTx;
         private DateTime _start = DateTime.Now;
-
+        private bool log = false;
         public NetworkChartsViewModel()
         {
         }
 
-        public NetworkChartsViewModel(INetworkCommunicator communicator, int seconds, long maxTx, long maxLine, long mediumLine)
+        public NetworkChartsViewModel(INetworkCommunicator communicator, int seconds, long maxTx, long maxLine, long mediumLine, bool log = false)
         {
+            this.log = log;
             Communicator = communicator;
             _updateTask = Task.Run(GetStats);
             _processTask = Task.Run(Process);
@@ -150,71 +153,46 @@ namespace AvaRaspberry.ViewModels
             }
         }
 
+        private object _lock = new object();
 
         protected virtual async Task Process()
         {
-            //var entr2y = new Entry()
-            //{
-            //    Value = new Random().Next(100000, 500000),
-            //    Color = App.Blue
-            //};
-
-            //var entr22y = new Entry()
-            //{
-            //    Value = new Random().Next(100000, 500000),
-            //    Color = App.Green
-            //};
-
-            //_entriesTx.Add(new Tuple<DateTime, Entry>(DateTime.Now, entr2y));
-            //_entriesRx.Add(new Tuple<DateTime, Entry>(DateTime.Now, entr22y));
-
-            //for (var i = 0; i <= 100000; i++)
-            //{
-            //    var lst = _entriesTx.Last();
-            //    var entry = new Entry()
-            //    {
-            //        Value = new Random().Next(100000, 500000),
-            //        Color = App.Blue
-            //    };
-
-            //    _entriesTx.Add(new Tuple<DateTime, Entry>(lst.Item1.AddSeconds(1), entry));
-
-            //    var lst2 = _entriesRx.Last();
-            //    var entry2 = new Entry()
-            //    {
-            //        Value = new Random().Next(100000, 500000),
-            //        Color = App.Green
-            //    };
-
-            //    _entriesRx.Add(new Tuple<DateTime, Entry>(lst2.Item1.AddSeconds(1), entry2));
-            //}
-
-
             while (true)
             {
                 try
                 {
 
+                    var sw = new Stopwatch();
+                    var s2 = new Stopwatch();
+                    s2.Start();
+                    sw.Start();
                     var perMin = false;
 
+                    ConsoleLog(sw, WidgetTitle, "1");
 
                     ProcessEntry(ref _entriesTx, NetworkStatistic.TotalTx,
                         SKColor.Parse("#66BF11"), DateTime.Now.AddSeconds(-_seconds), out _tickedEntriesTx);
 
+                    ConsoleLog(sw, WidgetTitle, "2");
+
                     ProcessEntry(ref _entriesRx, NetworkStatistic.TotalRx,
                         SKColor.Parse("#385AE3"), DateTime.Now.AddSeconds(-_seconds), out _tickedEntriesRx);
+
+                    ConsoleLog(sw, WidgetTitle, "3");
 
 
                     if (_tickedEntriesRx.Count > 50)
                     {
                         perMin = ProcessPerMinute(ref _entriesRx, out _tickedEntriesRx);
                     }
+                    ConsoleLog(sw, WidgetTitle, "4");
 
 
                     if (perMin)
                     {
                         ProcessPerMinute(ref _entriesTx, out _tickedEntriesTx);
                     }
+                    ConsoleLog(sw, WidgetTitle, "5");
 
 
                     var perHour = false;
@@ -224,6 +202,7 @@ namespace AvaRaspberry.ViewModels
                         perHour = ProcessPerHalfHour(ref _tickedEntriesTx, out var tickedEntriesTx);
                         _tickedEntriesTx = tickedEntriesTx;
                     }
+                    ConsoleLog(sw, WidgetTitle, "6");
 
 
                     if (perHour)
@@ -231,11 +210,13 @@ namespace AvaRaspberry.ViewModels
                         ProcessPerHalfHour(ref _tickedEntriesRx, out var tickedEntriesRx);
                         _tickedEntriesRx = tickedEntriesRx;
                     }
+                    ConsoleLog(sw, WidgetTitle, "7");
 
 
 
                     var span = DateTime.Now - _start;
                     WidgetTitle = $"{span.Humanize()} | H:{perHour} M:{perMin}| Rx: {_tickedEntriesRx.Count()} | Tx: {_tickedEntriesTx.Count()}";
+                    ConsoleLog(sw, WidgetTitle, "8");
 
                     ChartTx = new LineChart()
                     {
@@ -247,6 +228,7 @@ namespace AvaRaspberry.ViewModels
                         //MaxValue = _tickedEntriesTx.Max(x=>x.Item2.Value),
                         MinValue = 0
                     };
+                    ConsoleLog(sw, WidgetTitle, "9");
 
                     ChartRx = new LineChart()
                     {
@@ -259,6 +241,20 @@ namespace AvaRaspberry.ViewModels
                         MinValue = 0
                     };
 
+                    s2.Stop();
+
+                    ConsoleLog(sw, WidgetTitle, "10");
+                    if (log)
+                    {
+
+                        Console.WriteLine($" {Thread.CurrentThread.ManagedThreadId} total | {s2.Elapsed.Humanize()} | {s2.Elapsed.TotalMilliseconds}");
+                        Debug.WriteLine($" {Thread.CurrentThread.ManagedThreadId} total | {s2.Elapsed.Humanize()} | {s2.Elapsed.TotalMilliseconds}");
+
+                        Console.WriteLine($"---------------------------------------------------------------------------------------------------------------------------------------------------------");
+                        Debug.WriteLine($"---------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+                    }
+
 
                 }
                 catch (Exception ex)
@@ -268,6 +264,18 @@ namespace AvaRaspberry.ViewModels
                 {
                     await Task.Delay(App.GlobalDelay);
                 }
+            }
+
+        }
+        private void ConsoleLog(Stopwatch time, string who, string step)
+        {
+            if (log)
+            {
+                Console.WriteLine($" {Thread.CurrentThread.ManagedThreadId} {step} | {time.Elapsed.Humanize()} | {time.Elapsed.TotalMilliseconds}");
+                Debug.WriteLine($" {Thread.CurrentThread.ManagedThreadId} {step} | {time.Elapsed.Humanize()} | {time.Elapsed.TotalMilliseconds}");
+                time.Stop();
+                time.Reset();
+                time.Start();
             }
 
         }
