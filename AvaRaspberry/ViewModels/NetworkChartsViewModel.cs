@@ -27,7 +27,7 @@ namespace AvaRaspberry.ViewModels
         private protected readonly INetworkCommunicator Communicator;
         protected int _seconds;
         private long _maxTx;
-
+        private DateTime _start = DateTime.Now;
 
         public NetworkChartsViewModel()
         {
@@ -98,19 +98,44 @@ namespace AvaRaspberry.ViewModels
                     //}
 
 
+                    var perMin = false;
+
+
                     ProcessEntry(ref _entriesTx, NetworkStatistic.TotalTx,
-                        SKColor.Parse("#66BF11"), DateTime.Now.AddSeconds(-_seconds));
+                        SKColor.Parse("#66BF11"), DateTime.Now.AddSeconds(-_seconds), out _tickedEntriesTx);
 
                     ProcessEntry(ref _entriesRx, NetworkStatistic.TotalRx,
-                        SKColor.Parse("#385AE3"), DateTime.Now.AddSeconds(-_seconds));
+                        SKColor.Parse("#385AE3"), DateTime.Now.AddSeconds(-_seconds), out _tickedEntriesRx);
 
-                    ProcessPerMinute(ref _entriesTx, out _tickedEntriesTx);
-                    ProcessPerMinute(ref _entriesRx, out _tickedEntriesRx);
+                    if (_tickedEntriesRx.Count > 50)
+                    {
+                        perMin = ProcessPerMinute(ref _entriesRx, out _tickedEntriesRx);
+                    }
+
+
+                    if (perMin)
+                    {
+                        ProcessPerMinute(ref _entriesTx, out _tickedEntriesTx);
+                    }
+
+
+                    var perHour = false;
+
+                    if (_tickedEntriesTx.Count > 50 && perMin)
+                    {
+                        perHour = ProcessPerHalfHour(ref _tickedEntriesTx, out _tickedEntriesTx);
+                    }
+
+
+                    if (perHour)
+                    {
+                        ProcessPerHalfHour(ref _tickedEntriesRx, out _tickedEntriesRx);
+                    }
 
 
 
-                    UpdateWidget(_entriesTx.Count > 0 ? _entriesTx : _entriesRx);
-
+                    var span = DateTime.Now - _start;
+                    WidgetTitle = $"{span.Humanize()} | H:{perHour} M:{perMin}| Rx: {_tickedEntriesRx.Count()} | Tx: {_tickedEntriesTx.Count()}";
 
                     ChartTx = new LineChart()
                     {
@@ -141,17 +166,6 @@ namespace AvaRaspberry.ViewModels
                 }
             }
 
-        }
-
-        private void UpdateWidget(IEnumerable<Tuple<DateTime, Entry>> list)
-        {
-            if (list.Count() > 0)
-            {
-                var startDate = list.Min(x => x.Item1);
-                var endDate = list.Max(x => x.Item1);
-                var span = endDate - startDate;
-                WidgetTitle = $"{span.Humanize()}";
-            }
         }
     }
 }

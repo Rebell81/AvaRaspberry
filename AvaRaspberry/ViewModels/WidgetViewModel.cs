@@ -30,8 +30,7 @@ namespace AvaRaspberry.ViewModels
                 Color = color
             };
 
-            if (newValue > 0)
-                entries.Add(new Tuple<DateTime, Entry>(DateTime.Now, entry));
+            entries.Add(new Tuple<DateTime, Entry>(DateTime.Now, entry));
 
             cht = new LineChart()
             {
@@ -45,7 +44,7 @@ namespace AvaRaspberry.ViewModels
         }
 
         protected static void ProcessEntry(ref List<Tuple<DateTime, Entry>> entries, long newValue,
-        SKColor color, DateTime maxEntriesDate)
+        SKColor color, DateTime maxEntriesDate, out List<Tuple<DateTime, Entry>> tickedEntries)
         {
             entries = entries.Where(x => x.Item1 > maxEntriesDate).ToList();
 
@@ -55,17 +54,18 @@ namespace AvaRaspberry.ViewModels
                 Color = color
             };
 
-            if (newValue > 0)
-                entries.Add(new Tuple<DateTime, Entry>(DateTime.Now, entry));
+            entries.Add(new Tuple<DateTime, Entry>(DateTime.Now, entry));
+
+            tickedEntries = entries;
         }
 
-        public static void ProcessPerMinute(ref List<Tuple<DateTime, Entry>> entries, out List<Tuple<DateTime, Entry>> tickedEntries)
+        public static bool ProcessPerMinute(ref List<Tuple<DateTime, Entry>> entries, out List<Tuple<DateTime, Entry>> tickedEntries)
         {
 
             if (entries.Count < 50)
             {
                 tickedEntries = entries;
-                return;
+                return false;
             }
             else
             {
@@ -100,8 +100,59 @@ namespace AvaRaspberry.ViewModels
                 if (tickedEntries.Count() < 8)
                 {
                     tickedEntries = entries;
-                    return;
+                    return false;
                 }
+                return true;
+            }
+        }
+
+        public static bool ProcessPerHalfHour(ref List<Tuple<DateTime, Entry>> entries, out List<Tuple<DateTime, Entry>> tickedEntries)
+        {
+
+            if (entries.Count < 50)
+            {
+                tickedEntries = entries;
+                return false;
+            }
+            else
+            {
+                var minDate = entries.Min(x => x.Item1);
+                var maxDate = entries.Max(x => x.Item1);
+
+                var maxTimePerTick = minDate.AddMinutes(30);
+
+                List<Tuple<DateTime, Entry>> tuplesForCurrentTimeRange = new List<Tuple<DateTime, Entry>>();
+                tickedEntries = new List<Tuple<DateTime, Entry>>();
+
+                foreach (var tuple in entries)
+                {
+                    if (tuple.Item1 > maxTimePerTick)
+                    {
+                        maxTimePerTick = tuple.Item1.AddMinutes(30);
+
+                        if (tuplesForCurrentTimeRange.Count > 0)
+                        {
+                            var last = tuplesForCurrentTimeRange.Last();
+                            var avarage = tuplesForCurrentTimeRange.Average(x => x.Item2.Value);
+                            last.Item2.Value = avarage;
+
+                            tickedEntries.Add(new Tuple<DateTime, Entry>(last.Item1, last.Item2));
+                            tuplesForCurrentTimeRange.Clear();
+                        }
+                    }
+                    else
+                    {
+                        tuplesForCurrentTimeRange.Add(tuple);
+                    }
+                }
+
+                if (tickedEntries.Count() < 8)
+                {
+                    tickedEntries = entries;
+                    return false;
+                }
+
+                return true;
             }
         }
     }
