@@ -28,12 +28,12 @@ namespace AvaRaspberry.Serivices
             {
                 lock (_lock)
                 {
-                    var data = $"{DateTime.Now} | {message}";
+                    var data = $"{DateTime.Now} | {message}"+Environment.NewLine+Environment.NewLine;
                     
 
                     Console.WriteLine(data);
                     Debug.WriteLine(data);
-                    File.AppendAllText(_path+Environment.NewLine+Environment.NewLine, data);
+                    File.AppendAllText(_path, data);
                 }
             }
         }
