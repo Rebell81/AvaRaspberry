@@ -5,12 +5,12 @@ namespace AvaRaspberry.ViewModels
 {
     public class IDataPc : WidgetViewModel
     {
-        private  string _name = string.Empty;
+        private string _name = string.Empty;
         private string _errorCode = string.Empty;
         private bool _isConnected;
         protected string _cpuText = string.Empty, _ramText = String.Empty, _network = String.Empty;
 
-        protected long _totalRam, _currentRam,_currentCpu;
+        protected long _totalRam, _currentRam = 0, _currentCpu = 0;
 
         public long TotalRam
         {
@@ -29,7 +29,7 @@ namespace AvaRaspberry.ViewModels
             get => _currentCpu;
             protected set => this.RaiseAndSetIfChanged(ref _currentCpu, value);
         }
-        
+
         public string Name
         {
             get => _name;
@@ -59,13 +59,13 @@ namespace AvaRaspberry.ViewModels
             get => _ramText;
             protected set => this.RaiseAndSetIfChanged(ref _ramText, value);
         }
-        
+
         public string Network
         {
             get => _network;
             protected set => this.RaiseAndSetIfChanged(ref _network, value);
         }
-        
+
         protected static string GetSizeString(long length, bool showEmpty = true, bool isSpeed = false)
         {
             long B = 0, KB = 1024, MB = KB * 1024, GB = MB * 1024, TB = GB * 1024;
@@ -105,6 +105,5 @@ namespace AvaRaspberry.ViewModels
             return $"{size} {suffix}{ap2}";
         }
 
-        public override string WidgetTitle { get; set; }
     }
 }

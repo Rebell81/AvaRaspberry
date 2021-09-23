@@ -5,12 +5,17 @@ using Avalonia.Markup.Xaml;
 using AvaRaspberry.ViewModels;
 using AvaRaspberry.Views;
 using Microsoft.Extensions.DependencyInjection;
+using SkiaSharp;
+
 namespace AvaRaspberry
 {
     public class App : Application
     {
 
         public static int GlobalDelay = 1500;
+        public static SKColor Green = SKColor.Parse("#66BF11");
+        public static SKColor Blue = SKColor.Parse("#385AE3");
+
 
         public override void Initialize()
         {

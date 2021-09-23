@@ -34,7 +34,8 @@ namespace AvaRaspberry.ViewModels
                     if (ChartTx?.Entries != null)
                     {
                         var array = ChartTx.Entries.Concat(ChartRx.Entries);
-                        max = array.Max(x => x.Value);
+                        if (array.Count() > 0)
+                            max = array.Max(x => x.Value);
                     }
 
                     ProcessEntry(ref _entriesTx, NetworkStatistic.TotalTx,
@@ -46,8 +47,9 @@ namespace AvaRaspberry.ViewModels
                     ChartTx = chartTx;
                     ChartRx = chartRx;
                 }
-                catch
+                catch(Exception ex)
                 {
+                    Console.WriteLine(ex);
                 }
                 finally
                 {

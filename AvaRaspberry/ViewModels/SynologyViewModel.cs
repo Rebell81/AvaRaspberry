@@ -13,6 +13,11 @@ namespace AvaRaspberry.ViewModels
     {
         private List<Tuple<DateTime, Entry>> _entriesTx = new List<Tuple<DateTime, Entry>>();
         private List<Tuple<DateTime, Entry>> _entriesRx = new List<Tuple<DateTime, Entry>>();
+
+
+
+
+
         private readonly IPcCommunicator _communicator;
 
         private LineChart _chartTx, _chartRx;
@@ -46,37 +51,48 @@ namespace AvaRaspberry.ViewModels
                     {
                         var info = _communicator.GetUtilization();
 
-                        TotalRam = info.Data.Memory.total_real * 1024;
-                        CurrentRam = (info.Data.Memory.total_real - info.Data.Memory.avail_real) * 1024;
-
-                        CurrentCpu = info.Data.cpu.system_load
-                                     + info.Data.cpu.user_load;
-
-                        CpuText = $"{CurrentCpu}%";
-
-
-                        RamText = $"{GetSizeString(_currentRam)} / {GetSizeString(_totalRam)}";
-                        Network =
-                            $"{GetSizeString(info.Data.Network[0].rx, isSpeed: true)} / " +
-                            $"{GetSizeString(info.Data.Network[0].tx, isSpeed: true)}";
-
-                        float max = 0;
-                        if (ChartTx?.Entries != null)
+                        if (info.Data != null)
                         {
-                            var array = ChartTx.Entries.Concat(ChartRx.Entries);
-                            max = array.Max(x => x.Value);
+                            TotalRam = info.Data.Memory.total_real * 1024;
+                            CurrentRam = (info.Data.Memory.total_real - info.Data.Memory.avail_real) * 1024;
+
+                            CurrentCpu = info.Data.cpu.system_load
+                                         + info.Data.cpu.user_load;
+
+                            CpuText = $"{CurrentCpu}%";
+
+
+                            RamText = $"{GetSizeString(_currentRam)} / {GetSizeString(_totalRam)}";
+                            Network =
+                                $"{GetSizeString(info.Data.Network[0].rx, isSpeed: true)} / " +
+                                $"{GetSizeString(info.Data.Network[0].tx, isSpeed: true)}";
+
+                            float max = 0;
+                            if (ChartTx?.Entries != null)
+                            {
+                                var array = ChartTx.Entries.Concat(ChartRx.Entries);
+                                if (array.Count() > 0)
+                                    max = array.Max(x => x.Value);
+                            }
+
+
+
+
+                            ProcessEntry(ref _entriesTx, info.Data.Network[0].tx, App.Green, max,
+                                DateTime.Now.AddSeconds(-30), out var chartTx);
+
+                            ProcessEntry(ref _entriesRx, info.Data.Network[0].rx, App.Blue, max,
+                                DateTime.Now.AddSeconds(-30), out var chartRx);
+
+
+                            ChartTx = chartTx;
+                            ChartRx = chartRx;
                         }
 
-                        ProcessEntry(ref _entriesTx, info.Data.Network[0].tx, SKColor.Parse("#66BF11"), max,
-                            DateTime.Now.AddSeconds(-30), out var chartTx);
-                        ProcessEntry(ref _entriesRx, info.Data.Network[0].rx, SKColor.Parse("#385AE3"), max,
-                            DateTime.Now.AddSeconds(-30), out var chartRx);
-
-                        ChartTx = chartTx;
-                        ChartRx = chartRx;
                     }
-                    catch
+                    catch(Exception ex)
                     {
+                        Console.WriteLine(ex);
                         IsConnected = false;
                     }
                     finally
@@ -88,5 +104,6 @@ namespace AvaRaspberry.ViewModels
                 }
             });
         }
+
     }
 }

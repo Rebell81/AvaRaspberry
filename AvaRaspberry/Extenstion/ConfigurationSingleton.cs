@@ -18,7 +18,7 @@ namespace AvaRaspberry.Extenstion
         public static ConfigurationSingleton GetInstance()
         {
             Console.WriteLine("GetInstance Start");
-            var file = File.ReadAllText("/home/pi/Documents/appsettings.json");
+            //var file = File.ReadAllText("/home/pi/Documents/appsettings.json");
             //Console.WriteLine(file);
             Console.WriteLine("GetInstance Start2");
 

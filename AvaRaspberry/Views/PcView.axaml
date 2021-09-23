@@ -27,7 +27,8 @@
             <StackPanel Orientation="Horizontal" Margin="0,10">
                 <TextBlock Foreground="DarkGray" TextAlignment="Center" Text="CPU" Margin="20,0" />
                 <Grid>
-                    <ProgressBar  Height="20" HorizontalAlignment="Stretch" Maximum="100" Value="{Binding CurrentCpu}" />
+                    <ProgressBar  Height="20" HorizontalAlignment="Stretch" 
+								  Maximum="100" Value="{Binding CurrentCpu}" />
                     <TextBlock Foreground="DarkGray" TextAlignment="Center" Text="{Binding CpuText}" />
                 </Grid>
             </StackPanel>

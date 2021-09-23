@@ -15,7 +15,7 @@ namespace AvaRaspberry.Serivices
 
         public SynologyCommunicator()
         {
-            Task.Factory.StartNew(() =>
+            try
             {
                 var config = ConfigurationSingleton.Instance.Widgets.Synology;
 
@@ -30,7 +30,11 @@ namespace AvaRaspberry.Serivices
                 var session = new SynologySession(dd);
                 session.Login();
                 _api = new SynologyApi(session, dd);
-            });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
 
 
