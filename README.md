@@ -12,7 +12,7 @@ Developed predominantly for Raspberry Pi OS (Debian based).
 
 ### How it looks
 
-AvaRaspberry provide screen with helpful widgets, for example weather, to do list, currencies etc. 
+AvaRaspberry provide screen with helpful widgets, for example weather, or like QBittorrent session info / Synology info in my case.
 
 The main screen looks like this:
 <p align="center">
@@ -61,4 +61,3 @@ Contributors are welcome. Please submit an issue before introducing new features
 * [.NET Core](https://github.com/dotnet)
 * [Avalonia](https://avaloniaui.net/)
 * [Github Action](https://github.com/features/actions)
-
