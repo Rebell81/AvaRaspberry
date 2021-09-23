@@ -15,7 +15,8 @@ namespace AvaRaspberry
         public static int GlobalDelay = 1500;
         public static SKColor Green = SKColor.Parse("#66BF11");
         public static SKColor Blue = SKColor.Parse("#385AE3");
-
+        public static long TorrentMaxTx = 31457280; //30 mibibits
+        public static long SynologyMaxTx = 102674512; //1 gibibit
 
         public override void Initialize()
         {

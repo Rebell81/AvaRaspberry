@@ -44,6 +44,21 @@ namespace AvaRaspberry.ViewModels
             };
         }
 
+        protected static void ProcessEntry(ref List<Tuple<DateTime, Entry>> entries, long newValue,
+        SKColor color, DateTime maxEntriesDate)
+        {
+            entries = entries.Where(x => x.Item1 > maxEntriesDate).ToList();
+
+            var entry = new Entry()
+            {
+                Value = newValue,
+                Color = color
+            };
+
+            if (newValue > 0)
+                entries.Add(new Tuple<DateTime, Entry>(DateTime.Now, entry));
+        }
+
         public static void ProcessPerMinute(ref List<Tuple<DateTime, Entry>> entries, out List<Tuple<DateTime, Entry>> tickedEntries)
         {
 

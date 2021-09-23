@@ -11,7 +11,7 @@ namespace AvaRaspberry.ViewModels
         private readonly Task _updateTask;
 
         public TorrentViewModel(INetworkCommunicator communicator, string title, int seconds)
-            : base(communicator,seconds)
+            : base(communicator, seconds, App.TorrentMaxTx)
         {
             _updateTask = Task.Run(Process);
             WidgetTitle = title;
@@ -30,24 +30,23 @@ namespace AvaRaspberry.ViewModels
             {
                 try
                 {
-                    float max = 0;
-                    if (ChartTx?.Entries != null)
-                    {
-                        var array = ChartTx.Entries.Concat(ChartRx.Entries);
-                        if (array.Count() > 0)
-                            max = array.Max(x => x.Value);
-                    }
+                    //if (ChartTx?.Entries != null)
+                    //{
+                    //    var array = ChartTx.Entries.Concat(ChartRx.Entries);
+                    //    if (array.Count() > 0)
+                    //        max = array.Max(x => x.Value);
+                    //}
 
                     ProcessEntry(ref _entriesTx, NetworkStatistic.TotalTx,
-                        SKColor.Parse("#66BF11"), max, DateTime.Now.AddSeconds(-_seconds), out var chartTx);
+                        SKColor.Parse("#66BF11"), App.TorrentMaxTx, DateTime.Now.AddSeconds(-_seconds), out var chartTx);
 
                     ProcessEntry(ref _entriesRx, NetworkStatistic.TotalRx,
-                        SKColor.Parse("#385AE3"), max, DateTime.Now.AddSeconds(-_seconds), out var chartRx);
+                        SKColor.Parse("#385AE3"), App.TorrentMaxTx, DateTime.Now.AddSeconds(-_seconds), out var chartRx);
 
                     ChartTx = chartTx;
                     ChartRx = chartRx;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex);
                 }

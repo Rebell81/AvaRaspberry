@@ -9,7 +9,7 @@
              x:Class="AvaRaspberry.Views.Widgets.Chart24">
     <Grid Background="Black" >
        <controls:RxTxCharts />
-       <TextBlock Foreground="DarkGray" TextAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Center"
+       <TextBlock Foreground="DarkGray" TextAlignment="Center" VerticalAlignment="Bottom" HorizontalAlignment="Center"
                   Text="{Binding WidgetTitle}" Margin="0,20"/>
    </Grid>
 </UserControl>

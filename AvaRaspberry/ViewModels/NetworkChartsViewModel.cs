@@ -26,18 +26,20 @@ namespace AvaRaspberry.ViewModels
         protected NetworkStatistic _torrentClientStatistic;
         private protected readonly INetworkCommunicator Communicator;
         protected int _seconds;
+        private long _maxTx;
+
 
         public NetworkChartsViewModel()
         {
         }
 
-        public NetworkChartsViewModel(INetworkCommunicator communicator, int seconds)
+        public NetworkChartsViewModel(INetworkCommunicator communicator, int seconds, long maxTx)
         {
             Communicator = communicator;
             _updateTask = Task.Run(GetStats);
             _processTask = Task.Run(Process);
             _seconds = seconds;
-
+            _maxTx = maxTx;
             WidgetTitle = $"{TimeSpan.FromSeconds(seconds).TotalHours} h.";
 
             //Chart = new LineChart() { Entries = this.Entries };
@@ -88,20 +90,19 @@ namespace AvaRaspberry.ViewModels
             {
                 try
                 {
-                    float max = 0;
-                    if (ChartTx?.Entries != null)
-                    {
-                        var array = ChartTx.Entries.Concat(ChartRx.Entries);
-                        if (array.Count() > 0)
-                            max = array.Max(x => x.Value);
-                    }
+                    //if (ChartTx?.Entries != null)
+                    //{
+                    //    var array = ChartTx.Entries.Concat(ChartRx.Entries);
+                    //    if (array.Count() > 0)
+                    //        max = array.Max(x => x.Value);
+                    //}
 
 
                     ProcessEntry(ref _entriesTx, NetworkStatistic.TotalTx,
-                        SKColor.Parse("#66BF11"), max, DateTime.Now.AddSeconds(-_seconds), out var chartTx);
+                        SKColor.Parse("#66BF11"), DateTime.Now.AddSeconds(-_seconds));
 
                     ProcessEntry(ref _entriesRx, NetworkStatistic.TotalRx,
-                        SKColor.Parse("#385AE3"), max, DateTime.Now.AddSeconds(-_seconds), out var chartRx);
+                        SKColor.Parse("#385AE3"), DateTime.Now.AddSeconds(-_seconds));
 
                     ProcessPerMinute(ref _entriesTx, out _tickedEntriesTx);
                     ProcessPerMinute(ref _entriesRx, out _tickedEntriesRx);
@@ -117,7 +118,7 @@ namespace AvaRaspberry.ViewModels
                         BackgroundColor = SKColor.Parse("#00FFFFFF"),
                         PointSize = 0,
                         Margin = 0,
-                        MaxValue = max,
+                        MaxValue = _maxTx,
                         MinValue = 0
                     };
 
@@ -127,7 +128,7 @@ namespace AvaRaspberry.ViewModels
                         BackgroundColor = SKColor.Parse("#00FFFFFF"),
                         PointSize = 0,
                         Margin = 0,
-                        MaxValue = max,
+                        MaxValue = _maxTx,
                         MinValue = 0
                     };
                 }

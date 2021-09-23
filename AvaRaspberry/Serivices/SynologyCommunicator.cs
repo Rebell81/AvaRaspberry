@@ -19,12 +19,13 @@ namespace AvaRaspberry.Serivices
             {
                 var config = ConfigurationSingleton.Instance.Widgets.Synology;
 
+                var protocol = config.Ssl ? "https" : "http";
 
                 var dd = new AppSettingsClientConfig
                 {
                     User = config.User,
                     Password = config.Password,
-                    ApiBaseAddressAndPathNoTrailingSlash = $"https://{config.Host}:{config.Port}/webapi"
+                    ApiBaseAddressAndPathNoTrailingSlash = $"{protocol}://{config.Host}:{config.Port}/webapi"
                 };
 
                 var session = new SynologySession(dd);
@@ -45,7 +46,7 @@ namespace AvaRaspberry.Serivices
             var info = _api.GetUtilization();
             return info;
         }
-        
+
         public Task<NetworkStatistic> GetNetworkStatisticData()
         {
             return Task.Run(() =>
@@ -54,21 +55,27 @@ namespace AvaRaspberry.Serivices
 
                 try
                 {
-                    var info = _api.GetUtilization().Data.Network;
-                    var total = info.FirstOrDefault();
-                    return new NetworkStatistic()
+                    var info = _api.GetUtilization();
+                    if (info != null && info.Data != null)
                     {
-                        TotalRx = total?.rx ?? 0,
-                        TotalTx = total?.tx ?? 0,
-                        Connection_status = connection_status.connected,
-                        Device = total?.device
-                    };
+                        var total = info.Data.Network.FirstOrDefault();
+                        return new NetworkStatistic()
+                        {
+                            TotalRx = total?.rx ?? 0,
+                            TotalTx = total?.tx ?? 0,
+                            Connection_status = connection_status.connected,
+                            Device = total?.device
+                        };
+                    }
+                    throw new Exception();
+
+
                 }
                 catch (Exception e)
                 {
                     return new();
                 }
-               
+
             });
         }
 

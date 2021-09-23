@@ -95,21 +95,21 @@ namespace AvaRaspberry.ViewModels
         {
             NetworkChartsViewModelSynology = new NetworkChartsViewModel(
                 new SynologyCommunicator(),
-                (int) TimeSpan.FromHours(24).TotalSeconds);
+                (int) TimeSpan.FromHours(24).TotalSeconds, App.SynologyMaxTx);
         }
 
         private void InitNetworkChartsViewModelPi()
         {
             NetworkChartsViewModelPi = new NetworkChartsViewModel(
                 new QBittorrentService(ConfigurationSingleton.Instance.Widgets.Torrents.Last()),
-                (int) TimeSpan.FromHours(24).TotalSeconds);
+                (int) TimeSpan.FromHours(24).TotalSeconds, App.TorrentMaxTx);
         }
 
         private void InitNetworkChartsViewModelFalcon()
         {
             NetworkChartsViewModelFalcon = new NetworkChartsViewModel(
                 new QBittorrentService(ConfigurationSingleton.Instance.Widgets.Torrents.First()),
-                (int) TimeSpan.FromHours(24).TotalSeconds);
+                (int) TimeSpan.FromHours(24).TotalSeconds, App.TorrentMaxTx);
         }
     }
 }

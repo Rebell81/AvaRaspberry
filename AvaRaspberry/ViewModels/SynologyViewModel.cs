@@ -53,8 +53,16 @@ namespace AvaRaspberry.ViewModels
 
                         if (info.Data != null)
                         {
-                            TotalRam = info.Data.Memory.total_real * 1024;
-                            CurrentRam = (info.Data.Memory.total_real - info.Data.Memory.avail_real) * 1024;
+
+
+                            var totalInBytes = info.Data.Memory.memory_size * 1024;
+                            TotalRam = totalInBytes;
+
+                            //totalInBytes 100
+                            //?? info.Data.Memory.real_usage
+
+
+                            CurrentRam = (info.Data.Memory.real_usage * totalInBytes) /100 ;
 
                             CurrentCpu = info.Data.cpu.system_load
                                          + info.Data.cpu.user_load;
@@ -62,26 +70,26 @@ namespace AvaRaspberry.ViewModels
                             CpuText = $"{CurrentCpu}%";
 
 
-                            RamText = $"{GetSizeString(_currentRam)} / {GetSizeString(_totalRam)}";
+                            RamText = $"{GetSizeString(_currentRam)} / {GetSizeString(_totalRam)} ({info.Data.Memory.real_usage}%)";
                             Network =
                                 $"{GetSizeString(info.Data.Network[0].rx, isSpeed: true)} / " +
                                 $"{GetSizeString(info.Data.Network[0].tx, isSpeed: true)}";
 
-                            float max = 0;
-                            if (ChartTx?.Entries != null)
-                            {
-                                var array = ChartTx.Entries.Concat(ChartRx.Entries);
-                                if (array.Count() > 0)
-                                    max = array.Max(x => x.Value);
-                            }
+
+                            //if (ChartTx?.Entries != null)
+                            //{
+                            //    var array = ChartTx.Entries.Concat(ChartRx.Entries);
+                            //    if (array.Count() > 0)
+                            //        max = array.Max(x => x.Value);
+                            //}
 
 
 
 
-                            ProcessEntry(ref _entriesTx, info.Data.Network[0].tx, App.Green, max,
+                            ProcessEntry(ref _entriesTx, info.Data.Network[0].tx, App.Green, App.SynologyMaxTx,
                                 DateTime.Now.AddSeconds(-30), out var chartTx);
 
-                            ProcessEntry(ref _entriesRx, info.Data.Network[0].rx, App.Blue, max,
+                            ProcessEntry(ref _entriesRx, info.Data.Network[0].rx, App.Blue, App.SynologyMaxTx,
                                 DateTime.Now.AddSeconds(-30), out var chartRx);
 
 
