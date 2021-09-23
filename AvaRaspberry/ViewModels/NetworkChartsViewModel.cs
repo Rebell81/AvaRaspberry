@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Avalonia.Microcharts;
 using AvaRaspberry.Interfaces;
 using AvaRaspberry.Models.Torrent;
+using AvaRaspberry.Serivices;
 using Humanizer;
 using ReactiveUI;
 using SkiaSharp;
@@ -259,6 +260,7 @@ namespace AvaRaspberry.ViewModels
                 }
                 catch (Exception ex)
                 {
+                    Logger.Instance.Log(ex);
                 }
                 finally
                 {

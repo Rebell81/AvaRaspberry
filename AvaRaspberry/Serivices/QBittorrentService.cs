@@ -41,8 +41,9 @@ namespace AvaRaspberry.Serivices
                     UseAltSpeedLimits = data.use_alt_speed_limits
                 };
             }
-            catch
+            catch(Exception ex)
             {
+                Logger.Instance.Log(ex);
                 return new();
             }
         }

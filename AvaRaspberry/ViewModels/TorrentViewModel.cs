@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using AvaRaspberry.Interfaces;
+using AvaRaspberry.Serivices;
 using SkiaSharp;
 
 namespace AvaRaspberry.ViewModels
@@ -48,7 +49,7 @@ namespace AvaRaspberry.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex);
+                    Logger.Instance.Log(ex);
                 }
                 finally
                 {

@@ -34,7 +34,7 @@ namespace AvaRaspberry.Serivices
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Logger.Instance.Log(ex);
             }
         }
 
@@ -71,8 +71,10 @@ namespace AvaRaspberry.Serivices
 
 
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
+                    Logger.Instance.Log(ex);
+
                     return new();
                 }
 

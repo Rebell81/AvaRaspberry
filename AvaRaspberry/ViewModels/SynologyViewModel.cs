@@ -100,7 +100,7 @@ namespace AvaRaspberry.ViewModels
                     }
                     catch(Exception ex)
                     {
-                        Console.WriteLine(ex);
+                        Logger.Instance.Log(ex);
                         IsConnected = false;
                     }
                     finally

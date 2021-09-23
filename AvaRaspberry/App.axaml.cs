@@ -1,7 +1,9 @@
 using System;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using AvaRaspberry.Serivices;
 using AvaRaspberry.ViewModels;
 using AvaRaspberry.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +13,24 @@ namespace AvaRaspberry
 {
     public class App : Application
     {
+
+        public App()
+        {
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+
+            TaskScheduler.UnobservedTaskException += (s, e) =>
+            {
+                Logger.Instance.Log(e.Exception);
+            };
+            
+        }
+
+        
+        
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Logger.Instance.Log(e.ExceptionObject);
+        }
 
         public static int GlobalDelay = 1500;
         public static SKColor Green = SKColor.Parse("#66BF11");
@@ -35,9 +55,10 @@ namespace AvaRaspberry
             Console.WriteLine("Initialize Start");
             AvaloniaXamlLoader.Load(this);
             Console.WriteLine("Initialize End");
-
         }
 
+        
+        
         public override void OnFrameworkInitializationCompleted()
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
