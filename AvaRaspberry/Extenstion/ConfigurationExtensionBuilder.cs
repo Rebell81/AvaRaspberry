@@ -1,4 +1,7 @@
 ﻿using Avalonia.Controls;
+using AvaRaspberry.Serivices;
+using System;
+using System.Threading;
 
 namespace AvaRaspberry.Extenstion
 {
@@ -6,7 +9,21 @@ namespace AvaRaspberry.Extenstion
     {
         public static T BuildConfiguration<T>(this T builder) where T : AppBuilderBase<T>, new()
         {
-            BuildConfig();
+
+            while(true)
+            {
+                try
+                {
+                    BuildConfig();
+                    break;
+                }
+                catch(Exception ex)
+                {
+                    LoggerService.Instance.Log(ex);
+                    Thread.Sleep(5000);
+                }
+            }
+          
 
             return builder;
         }
