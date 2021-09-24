@@ -7,39 +7,25 @@ using Avalonia.Microcharts;
 using AvaRaspberry.Serivices;
 using SkiaSharp;
 using AvaRaspberry.Interfaces;
+using Humanizer;
+using AvaRaspberry.Converters;
 
 namespace AvaRaspberry.ViewModels
 {
     public class SynologyViewModel : DataPc
     {
-        private List<Tuple<DateTime, Entry>> _entriesTx = new List<Tuple<DateTime, Entry>>();
-        private List<Tuple<DateTime, Entry>> _entriesRx = new List<Tuple<DateTime, Entry>>();
 
-
-
+        private BytesToUserFriendlyText converter = new BytesToUserFriendlyText();
 
 
         private readonly IPcCommunicator _communicator;
 
-        private LineChart _chartTx, _chartRx;
 
-        public SynologyViewModel(IPcCommunicator communicator)
+        public SynologyViewModel(IPcCommunicator communicator) : base(communicator, 30, App.SynologyMaxTx, App.SynologyMaxTxLine, App.SynologyMediumTxLine, false, true)
         {
             Name = "Falcon";
             Start();
             _communicator = communicator;
-        }
-
-        public LineChart ChartRx
-        {
-            get => _chartRx;
-            protected set => this.RaiseAndSetIfChanged(ref _chartRx, value);
-        }
-
-        public LineChart ChartTx
-        {
-            get => _chartTx;
-            protected set => this.RaiseAndSetIfChanged(ref _chartTx, value);
         }
 
         private void Start()
@@ -52,7 +38,7 @@ namespace AvaRaspberry.ViewModels
                     {
                         var info = _communicator.GetUtilization();
 
-                        if (info!=null && info.Data != null)
+                        if (info != null && info.Data != null)
                         {
 
 
@@ -63,7 +49,7 @@ namespace AvaRaspberry.ViewModels
                             //?? info.Data.Memory.real_usage
 
 
-                            CurrentRam = (info.Data.Memory.real_usage * totalInBytes) /100 ;
+                            CurrentRam = (info.Data.Memory.real_usage * totalInBytes) / 100;
 
                             CurrentCpu = info.Data.cpu.system_load
                                          + info.Data.cpu.user_load;
@@ -71,10 +57,8 @@ namespace AvaRaspberry.ViewModels
                             CpuText = $"{CurrentCpu}%";
 
 
-                            RamText = $"{GetSizeString(_currentRam)} / {GetSizeString(_totalRam)} ({info.Data.Memory.real_usage}%)";
-                            Network =
-                                $"{GetSizeString(info.Data.Network[0].rx, isSpeed: true)} / " +
-                                $"{GetSizeString(info.Data.Network[0].tx, isSpeed: true)}";
+                            RamText = $"{converter.Convert(_currentRam)} / {converter.Convert(TotalRam)} ({info.Data.Memory.real_usage}%)";
+                            Network = $"{converter.Convert(info.Data.Network[0].rx)} / {converter.Convert(info.Data.Network[0].tx)}";
 
 
                             //if (ChartTx?.Entries != null)
@@ -99,7 +83,7 @@ namespace AvaRaspberry.ViewModels
                         }
 
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         LoggerService.Instance.Log(ex);
                         IsConnected = false;

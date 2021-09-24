@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvaRaspberry", "AvaRaspberry\AvaRaspberry.csproj", "{CF5819AD-C05D-4D6B-9253-2A7B7E78ADDA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SYno", "SYno\SYno.csproj", "{D26B6FD1-C216-4354-A293-0CD9C79AE17B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avalonia.Microcharts", "AvaCharts\Avalonia.Microcharts.csproj", "{1FC120A2-9D91-4863-985E-40481A581B1F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avalonia.Microcharts", "AvaCharts\Avalonia.Microcharts\Avalonia.Microcharts.csproj", "{8AA845C0-48D9-4757-9E98-42F03FF9F927}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "qBittorrent.qBittorrentApi", "QBit\qBittorrent.qBittorrentApi.csproj", "{74627F78-CD6B-4A26-BA57-6150C7E93CAE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "qBittorrent.qBittorrentApi", "QBit\qBittorrent.qBittorrentApi.csproj", "{11EECEB1-AE78-41D6-A51D-B087B4A18C48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SYno", "SYno\SYno.csproj", "{B1448E41-3014-4E3D-BA94-6D74037B00BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,18 +21,18 @@ Global
 		{CF5819AD-C05D-4D6B-9253-2A7B7E78ADDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF5819AD-C05D-4D6B-9253-2A7B7E78ADDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF5819AD-C05D-4D6B-9253-2A7B7E78ADDA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D26B6FD1-C216-4354-A293-0CD9C79AE17B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D26B6FD1-C216-4354-A293-0CD9C79AE17B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D26B6FD1-C216-4354-A293-0CD9C79AE17B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D26B6FD1-C216-4354-A293-0CD9C79AE17B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8AA845C0-48D9-4757-9E98-42F03FF9F927}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8AA845C0-48D9-4757-9E98-42F03FF9F927}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8AA845C0-48D9-4757-9E98-42F03FF9F927}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8AA845C0-48D9-4757-9E98-42F03FF9F927}.Release|Any CPU.Build.0 = Release|Any CPU
-		{11EECEB1-AE78-41D6-A51D-B087B4A18C48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{11EECEB1-AE78-41D6-A51D-B087B4A18C48}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{11EECEB1-AE78-41D6-A51D-B087B4A18C48}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{11EECEB1-AE78-41D6-A51D-B087B4A18C48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FC120A2-9D91-4863-985E-40481A581B1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FC120A2-9D91-4863-985E-40481A581B1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FC120A2-9D91-4863-985E-40481A581B1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FC120A2-9D91-4863-985E-40481A581B1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74627F78-CD6B-4A26-BA57-6150C7E93CAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74627F78-CD6B-4A26-BA57-6150C7E93CAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74627F78-CD6B-4A26-BA57-6150C7E93CAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74627F78-CD6B-4A26-BA57-6150C7E93CAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1448E41-3014-4E3D-BA94-6D74037B00BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1448E41-3014-4E3D-BA94-6D74037B00BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1448E41-3014-4E3D-BA94-6D74037B00BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1448E41-3014-4E3D-BA94-6D74037B00BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

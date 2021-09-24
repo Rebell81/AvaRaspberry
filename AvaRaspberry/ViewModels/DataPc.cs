@@ -1,10 +1,19 @@
 using System;
+using AvaRaspberry.Interfaces;
 using ReactiveUI;
 
 namespace AvaRaspberry.ViewModels
 {
-    public class DataPc : WidgetViewModel
+    public class DataPc : NetworkChartsViewModel
     {
+
+        protected DataPc(INetworkCommunicator communicator, int seconds, long maxTx, long maxLine, long mediumLine, bool log = false, bool isTitleOverrided = false)
+            : base(communicator, seconds, maxTx, maxLine, mediumLine, log, isTitleOverrided)
+        {
+
+        }
+
+
         private string _name = string.Empty;
         private string _errorCode = string.Empty;
         private bool _isConnected;
@@ -65,45 +74,5 @@ namespace AvaRaspberry.ViewModels
             get => _network;
             protected set => this.RaiseAndSetIfChanged(ref _network, value);
         }
-
-        protected static string GetSizeString(long length, bool showEmpty = true, bool isSpeed = false)
-        {
-            long B = 0, KB = 1024, MB = KB * 1024, GB = MB * 1024, TB = GB * 1024;
-            double size;
-            var suffix = nameof(B);
-
-            double selSize;
-            if (length >= TB)
-            {
-                selSize = TB;
-                suffix = nameof(TB);
-            }
-            else if (length >= GB)
-            {
-                selSize = GB;
-                suffix = nameof(GB);
-            }
-            else if (length >= MB)
-            {
-                selSize = MB;
-                suffix = nameof(MB);
-            }
-            else if (length >= KB)
-            {
-                selSize = KB;
-                suffix = nameof(KB);
-            }
-            else
-            {
-                var app = isSpeed ? "/s" : "";
-                return showEmpty ? $"0 KB{app}" : string.Empty;
-            }
-
-            size = Math.Round(length / selSize, 2);
-            var ap2 = isSpeed ? "/s" : "";
-
-            return $"{size} {suffix}{ap2}";
-        }
-
     }
 }

@@ -24,9 +24,7 @@
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0-preview.7.21377.19" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AvaCharts\Avalonia.Microcharts\Avalonia.Microcharts.csproj" />
-    <ProjectReference Include="..\Avalonia.Microcharts\src\Avalonia.Microcharts\Avalonia.Microcharts.csproj" />
-    <ProjectReference Include="..\qBittorrent\src\qBittorrent.qBittorrentApi\qBittorrent.qBittorrentApi.csproj" />
+    <ProjectReference Include="..\AvaCharts\Avalonia.Microcharts.csproj" />
     <ProjectReference Include="..\QBit\qBittorrent.qBittorrentApi.csproj" />
     <ProjectReference Include="..\SYno\SYno.csproj" />
   </ItemGroup>

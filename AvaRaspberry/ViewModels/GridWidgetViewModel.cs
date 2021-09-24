@@ -11,6 +11,42 @@ namespace AvaRaspberry.ViewModels
 {
     public class GridWidgetViewModel : ViewModelBase
     {
+
+
+        public GridWidgetViewModel()
+        {
+            QBitTorrentService.Init(ConfigurationService.Instance.Widgets.Torrents.Falcon, ConfigurationService.Instance.Widgets.Torrents.Pi);
+
+
+            var tasks = new List<Task>
+            {
+                new(InitSynologyViewModel),
+                new(InitTorrentViewModelPi),
+                new(InitTorrentViewModelFalcon),
+
+                new(InitNetworkChartsViewModelSynology),
+                new(InitNetworkChartsViewModelPi),
+                new(InitNetworkChartsViewModelFalcon),
+            };
+
+            Parallel.ForEach(tasks, task =>
+            {
+                task.Start();
+            });
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
         private TorrentViewModel _qbTorrentViewModel, _qbTorrentViewModelPi;
 
         private NetworkChartsViewModel _networkChartsViewModelSynology,
@@ -70,27 +106,6 @@ namespace AvaRaspberry.ViewModels
 
 
 
-        public GridWidgetViewModel()
-        {
-            QBitTorrentService.Init(ConfigurationService.Instance.Widgets.Torrents.Falcon, ConfigurationService.Instance.Widgets.Torrents.Pi);
-
-
-            var tasks = new List<Task>
-            {
-                new(InitSynologyViewModel),
-                new(InitTorrentViewModelPi),
-                new(InitTorrentViewModelFalcon),
-
-                new(InitNetworkChartsViewModelSynology),
-                new(InitNetworkChartsViewModelPi),
-                new(InitNetworkChartsViewModelFalcon),
-            };
-
-            Parallel.ForEach(tasks, task =>
-            {
-                task.Start();
-            });
-        }
 
         private void InitSynologyViewModel()
         {
