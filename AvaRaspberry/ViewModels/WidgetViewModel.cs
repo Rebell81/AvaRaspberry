@@ -152,11 +152,31 @@ namespace AvaRaspberry.ViewModels
 
                         if (tuplesForCurrentTimeRange.Count > 0)
                         {
-                            var last = tuplesForCurrentTimeRange.Last();
-                            var avarage = tuplesForCurrentTimeRange.Average(x => x.Item2.Value);
-                            last.Item2.Value = avarage;
 
-                            tickedEntries.Add(new Tuple<DateTime, Entry>(last.Item1, last.Item2));
+                            var last = tuplesForCurrentTimeRange.Last();
+                            var entry = new Entry();
+
+                            if (tuplesForCurrentTimeRange.Any(x => x.Item2.Color == App.Red))
+                            {
+                                entry = new Entry()
+                                {
+                                    Value = tuplesForCurrentTimeRange.Max(x => x.Item2.Value),
+                                    Color = App.Red
+                                };
+                            }
+                            else
+                            {
+                                entry = new Entry()
+                                {
+                                    Value = tuplesForCurrentTimeRange.Average(x => x.Item2.Value),
+                                    Color = last.Item2.Color
+                                };
+                            }
+
+
+                            var date = new DateTime(last.Item1.Year, last.Item1.Month, last.Item1.Day, last.Item1.Hour, 0, 0);
+
+                            tickedEntries.Add(new Tuple<DateTime, Entry>(date, entry));
                             tuplesForCurrentTimeRange.Clear();
                         }
                     }
