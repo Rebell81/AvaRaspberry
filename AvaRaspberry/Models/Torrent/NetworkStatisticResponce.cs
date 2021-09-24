@@ -2,7 +2,7 @@ using qBittorrent.qBittorrentApi;
 
 namespace AvaRaspberry.Models.Torrent
 {
-    public class NetworkStatistic : Base
+    public class NetworkStatisticResponce : BaseResponce
     {
 
         private long _totalRx, _totalTx, _totalRxSession, _totalTxSession, _dl_rate_limit,

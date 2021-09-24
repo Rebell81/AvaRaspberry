@@ -5,6 +5,6 @@ namespace AvaRaspberry.Interfaces
 {
     public interface INetworkCommunicator
     {
-        public Task<NetworkStatistic> GetNetworkStatisticData();
+        public Task<NetworkStatisticResponce> GetNetworkStatisticData();
     }
 }

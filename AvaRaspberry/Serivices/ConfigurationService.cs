@@ -1,21 +1,19 @@
 ﻿using System;
-using System.IO;
 using AvaRaspberry.Models;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
-#pragma warning disable 8618
 
 namespace AvaRaspberry.Extenstion
 {
-    public class ConfigurationSingleton
+    public class ConfigurationService
     {
-        private ConfigurationSingleton()
+        private ConfigurationService()
         {
         }
 
-        private static ConfigurationSingleton _instance;
+        private static ConfigurationService _instance;
 
-        public static ConfigurationSingleton GetInstance()
+        public static ConfigurationService GetInstance()
         {
             Console.WriteLine("GetInstance Start");
             //var file = File.ReadAllText("/home/pi/Documents/appsettings.json");
@@ -46,22 +44,22 @@ namespace AvaRaspberry.Extenstion
                 Console.WriteLine("GetInstance mid");
 
                 
-                _instance = new ConfigurationSingleton()
+                _instance = new ConfigurationService()
                 {
                     Widgets = configuration.GetSection(nameof(Widgets)).Get<Widgets>()
                 };
 
-                _instance.Widgets.Torrents = configuration.GetSection($"{nameof(Widgets)}:{nameof(Models.Widgets.Torrents)}")
-                    .GetChildren()
-                    .ToList()
-                    .Select(x => new TorrentConfig
-                    {
-                        User = x.GetValue<string>(nameof(TorrentConfig.User)),
-                        Password = x.GetValue<string>(nameof(TorrentConfig.Password)),
-                        Host = x.GetValue<string>(nameof(TorrentConfig.Host)),
-                        Port = x.GetValue<string>(nameof(TorrentConfig.Port)),
-                        Ssl = x.GetValue<bool>(nameof(TorrentConfig.Ssl)),
-                    }).ToList();
+                //_instance.Widgets.Torrents = configuration.GetSection($"{nameof(Widgets)}:{nameof(Models.Widgets.Torrents)}")
+                //    .GetChildren()
+                //    .ToList()
+                //    .Select(x => new TorrentConfig
+                //    {
+                //        User = x.GetValue<string>(nameof(TorrentConfig.User)),
+                //        Password = x.GetValue<string>(nameof(TorrentConfig.Password)),
+                //        Host = x.GetValue<string>(nameof(TorrentConfig.Host)),
+                //        Port = x.GetValue<string>(nameof(TorrentConfig.Port)),
+                //        Ssl = x.GetValue<bool>(nameof(TorrentConfig.Ssl)),
+                //    }).ToList();
             }
             catch (Exception e)
             {
@@ -77,7 +75,7 @@ namespace AvaRaspberry.Extenstion
             return _instance;
         }
 
-        public static ConfigurationSingleton Instance
+        public static ConfigurationService Instance
         {
             get
             {

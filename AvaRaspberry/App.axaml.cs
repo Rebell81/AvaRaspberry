@@ -20,7 +20,7 @@ namespace AvaRaspberry
 
             TaskScheduler.UnobservedTaskException += (s, e) =>
             {
-                Logger.Instance.Log(e.Exception);
+                LoggerService.Instance.Log(e.Exception);
             };
             
         }
@@ -29,7 +29,7 @@ namespace AvaRaspberry
         
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Logger.Instance.Log(e.ExceptionObject);
+            LoggerService.Instance.Log(e.ExceptionObject);
         }
 
         public static int GlobalDelay = 1500;

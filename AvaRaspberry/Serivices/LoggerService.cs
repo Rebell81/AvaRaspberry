@@ -4,22 +4,22 @@ using System.IO;
 
 namespace AvaRaspberry.Serivices
 {
-    public class Logger
+    public class LoggerService
     {
-        private static Logger _logger;
+        private static LoggerService _logger;
         private readonly string _path;
         private readonly object _lock = new object();
 
-        public static Logger Instance => GetInstance();
+        public static LoggerService Instance => GetInstance();
 
-        private Logger()
+        private LoggerService()
         {
             _path = "/home/pi/Documents/log.txt";
         }
 
-        private static Logger GetInstance()
+        private static LoggerService GetInstance()
         {
-            return _logger ??= new Logger();
+            return _logger ??= new LoggerService();
         }
 
         public void Log(object message)

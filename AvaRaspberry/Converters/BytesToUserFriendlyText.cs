@@ -2,6 +2,8 @@
 using System;
 using System.Globalization;
 using AvaRaspberry.Serivices;
+using AvaRaspberry.Extenstion;
+using Humanizer;
 
 namespace AvaRaspberry.Converters
 {
@@ -12,7 +14,8 @@ namespace AvaRaspberry.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return Utils.GetSizeString(System.Convert.ToInt64(value), true, IsSpeed);
+            var addition = IsSpeed ? "/s" : string.Empty;
+            return ((long)(value)).Bytes().ToString("#.##") + addition;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -18,7 +18,6 @@ namespace AvaRaspberry.Views
             WindowState = WindowState.Normal;
 #else
             WindowState = WindowState.FullScreen;
-            Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.None);
             SystemDecorations = SystemDecorations.None;
 #endif
             Console.WriteLine("MainWindow e");

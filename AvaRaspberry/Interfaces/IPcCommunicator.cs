@@ -1,7 +1,6 @@
-using AvaRaspberry.Interfaces;
 using SynologyClient;
 
-namespace AvaRaspberry.ViewModels
+namespace AvaRaspberry.Interfaces
 {
     public interface IPcCommunicator : INetworkCommunicator
     {

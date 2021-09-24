@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Microcharts;
@@ -30,30 +31,32 @@ namespace AvaRaspberry.ViewModels
         private readonly Task _updateTask;
 
         private readonly Task _processTask;
-        protected NetworkStatistic _torrentClientStatistic;
+        protected NetworkStatisticResponce _torrentClientStatistic;
         private protected readonly INetworkCommunicator Communicator;
         protected int _seconds;
         private long _maxTx;
         private DateTime _start = DateTime.Now;
         private bool log = false;
+        private bool _isTitleOverrided;
         public NetworkChartsViewModel()
         {
         }
 
-        public NetworkChartsViewModel(INetworkCommunicator communicator, int seconds, long maxTx, long maxLine, long mediumLine, bool log = false)
+        public NetworkChartsViewModel(INetworkCommunicator communicator, int seconds, long maxTx, long maxLine, long mediumLine, bool log = false, bool isTitleOverrided = false)
         {
             this.log = log;
             Communicator = communicator;
-            _updateTask = Task.Run(GetStats);
-            _processTask = Task.Run(Process);
+            _isTitleOverrided = isTitleOverrided;
             _seconds = seconds;
             _maxTx = maxTx;
-            WidgetTitle = $"{TimeSpan.FromSeconds(seconds).TotalHours} h.";
 
             FillWithLine(chartLineEntryMax, maxLine, App.Red);
             FillWithLine(chartLineEntryMedium, mediumLine, App.Purple);
 
             MakeChart(chartLineEntryMax, chartLineEntryMedium);
+
+            _updateTask = Task.Run(GetStats);
+            _processTask = Task.Run(Process);
         }
 
         private void MakeChart(List<Entry> entriesMax, List<Entry> entriesMedium)
@@ -102,9 +105,9 @@ namespace AvaRaspberry.ViewModels
         }
 
 
-        public NetworkStatistic NetworkStatistic
+        public NetworkStatisticResponce NetworkStatistic
         {
-            get => _torrentClientStatistic ?? new NetworkStatistic();
+            get => _torrentClientStatistic ?? new NetworkStatisticResponce();
             protected set => this.RaiseAndSetIfChanged(ref _torrentClientStatistic, value);
         }
 
@@ -154,15 +157,12 @@ namespace AvaRaspberry.ViewModels
             }
         }
 
-        private object _lock = new object();
-
         protected virtual async Task Process()
         {
             while (true)
             {
                 try
                 {
-
                     var sw = new Stopwatch();
                     var s2 = new Stopwatch();
                     s2.Start();
@@ -172,12 +172,12 @@ namespace AvaRaspberry.ViewModels
                     ConsoleLog(sw, WidgetTitle, "1");
 
                     ProcessEntry(ref _entriesTx, NetworkStatistic.TotalTx,
-                        SKColor.Parse("#66BF11"), DateTime.Now.AddSeconds(-_seconds), out _tickedEntriesTx);
+                        App.Green, DateTime.Now.AddSeconds(-_seconds), out _tickedEntriesTx, _maxTx, NetworkStatistic.Result);
 
                     ConsoleLog(sw, WidgetTitle, "2");
 
                     ProcessEntry(ref _entriesRx, NetworkStatistic.TotalRx,
-                        SKColor.Parse("#385AE3"), DateTime.Now.AddSeconds(-_seconds), out _tickedEntriesRx);
+                        App.Blue, DateTime.Now.AddSeconds(-_seconds), out _tickedEntriesRx, _maxTx, NetworkStatistic.Result);
 
                     ConsoleLog(sw, WidgetTitle, "3");
 
@@ -216,13 +216,16 @@ namespace AvaRaspberry.ViewModels
 
 
                     var span = DateTime.Now - _start;
-                    WidgetTitle = $"{span.Humanize()} | H:{perHour} M:{perMin}| Rx: {_tickedEntriesRx.Count()} | Tx: {_tickedEntriesTx.Count()}";
-                    ConsoleLog(sw, WidgetTitle, "8");
 
+                    if (!_isTitleOverrided)
+                        WidgetTitle = $"{span.Humanize()} | H:{perHour} M:{perMin}| Rx: {_tickedEntriesRx.Count()} | Tx: {_tickedEntriesTx.Count()}";
+
+
+                    ConsoleLog(sw, WidgetTitle, "8");
                     ChartTx = new LineChart()
                     {
                         Entries = _tickedEntriesTx.Select(x => x.Item2).ToArray(),
-                        BackgroundColor = SKColor.Parse("#00FFFFFF"),
+                        BackgroundColor = NetworkStatistic.Result ? App.Tranparent : App.Red,
                         PointSize = 0,
                         Margin = 0,
                         MaxValue = _maxTx,
@@ -234,7 +237,7 @@ namespace AvaRaspberry.ViewModels
                     ChartRx = new LineChart()
                     {
                         Entries = _tickedEntriesRx.Select(x => x.Item2).ToArray(),
-                        BackgroundColor = SKColor.Parse("#00FFFFFF"),
+                        BackgroundColor = NetworkStatistic.Result ? App.Tranparent : App.Red,
                         PointSize = 0,
                         Margin = 0,
                         MaxValue = _maxTx,
@@ -255,12 +258,10 @@ namespace AvaRaspberry.ViewModels
                         Debug.WriteLine($"---------------------------------------------------------------------------------------------------------------------------------------------------------");
 
                     }
-
-
                 }
                 catch (Exception ex)
                 {
-                    Logger.Instance.Log(ex);
+                    LoggerService.Instance.Log(ex);
                 }
                 finally
                 {
@@ -269,6 +270,7 @@ namespace AvaRaspberry.ViewModels
             }
 
         }
+
         private void ConsoleLog(Stopwatch time, string who, string step)
         {
             if (log)

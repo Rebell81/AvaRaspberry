@@ -13,21 +13,21 @@ namespace AvaRaspberry.ViewModels
 
         private string _widgetTitle;
 
-        public string WidgetTitle
+        public virtual string WidgetTitle
         {
             get => _widgetTitle;
             set => this.RaiseAndSetIfChanged(ref _widgetTitle, value);
         }
 
         protected static void ProcessEntry(ref List<Tuple<DateTime, Entry>> entries, long newValue,
-            SKColor color, float max, DateTime maxEntriesDate, out LineChart cht)
+            SKColor color, float max, DateTime maxEntriesDate, out LineChart cht, long fallBackValue, bool isPositive = true)
         {
             entries = entries.Where(x => x.Item1 > maxEntriesDate).ToList();
 
             var entry = new Entry()
             {
-                Value = newValue,
-                Color = color
+                Value = isPositive ? newValue : fallBackValue,
+                Color = isPositive ? color : App.Red
             };
 
             entries.Add(new Tuple<DateTime, Entry>(DateTime.Now, entry));
@@ -44,14 +44,14 @@ namespace AvaRaspberry.ViewModels
         }
 
         protected static void ProcessEntry(ref List<Tuple<DateTime, Entry>> entries, long newValue,
-        SKColor color, DateTime maxEntriesDate, out List<Tuple<DateTime, Entry>> tickedEntries)
+            SKColor color, DateTime maxEntriesDate, out List<Tuple<DateTime, Entry>> tickedEntries, long fallBackValue, bool isPositive = true)
         {
             entries = entries.Where(x => x.Item1 > maxEntriesDate).ToList();
 
             var entry = new Entry()
             {
-                Value = newValue,
-                Color = color
+                Value = isPositive ? newValue : fallBackValue,
+                Color = isPositive ? color : App.Red
             };
 
             entries.Add(new Tuple<DateTime, Entry>(DateTime.Now, entry));
@@ -73,7 +73,7 @@ namespace AvaRaspberry.ViewModels
                 var maxDate = entries.Max(x => x.Item1);
 
                 var currentMinute = minDate.Minute;
-                List<Tuple<DateTime, Entry>> tickedTuple = new List<Tuple<DateTime, Entry>>();
+                List<Tuple<DateTime, Entry>> tickedTuple = new();
                 tickedEntries = new List<Tuple<DateTime, Entry>>();
 
                 foreach (var tuple in entries)
@@ -82,12 +82,32 @@ namespace AvaRaspberry.ViewModels
                     {
                         currentMinute = tuple.Item1.Minute;
 
-                        if(tickedTuple.Count>0)
+                        if (tickedTuple.Count > 0)
                         {
+                            var entry = new Entry();
+
                             var last = tickedTuple.Last();
-                            var avarage = tickedTuple.Average(x => x.Item2.Value);
-                            last.Item2.Value = avarage;
-                            tickedEntries.Add(new Tuple<DateTime, Entry>(last.Item1, last.Item2));
+
+                            if (tickedTuple.Any(x => x.Item2.Color == App.Red))
+                            {
+                                entry = new Entry()
+                                {
+                                    Value = tickedTuple.Max(x => x.Item2.Value),
+                                    Color = App.Red
+                                };
+                            }
+                            else
+                            {
+                                entry = new Entry()
+                                {
+                                    Value = tickedTuple.Average(x => x.Item2.Value),
+                                    Color = last.Item2.Color
+                                };
+                            }
+
+                            var date = new DateTime(last.Item1.Year, last.Item1.Month, last.Item1.Day, last.Item1.Hour, last.Item1.Minute, 0);
+
+                            tickedEntries.Add(new Tuple<DateTime, Entry>(date, entry));
                             tickedTuple.Clear();
                         }
                     }

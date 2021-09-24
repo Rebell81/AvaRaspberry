@@ -5,8 +5,11 @@ using JetBrains.Annotations;
 
 namespace AvaRaspberry.Models.Torrent
 {
-    public class Base : INotifyPropertyChanged
+    public class BaseResponce : INotifyPropertyChanged
     {
+
+        public bool Result { get; set; } = false;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

@@ -1,51 +1,41 @@
-using System;
-using System.Threading.Tasks;
-using AvaRaspberry.Interfaces;
-using AvaRaspberry.Models;
-using AvaRaspberry.Models.Torrent;
-using qBittorrent.qBittorrentApi;
+﻿using AvaRaspberry.Interfaces;
+
 
 namespace AvaRaspberry.Serivices
 {
-    public class QBittorrentService : INetworkCommunicator
+    public static class QBitTorrentService
     {
-        private Api _api;
+        private static INetworkCommunicator _qBitTorrentCommunicatorFalcon;
+        private static INetworkCommunicator _qBitTorrentCommunicatorPi;
 
-        public QBittorrentService(TorrentConfig config)
+        private static IUserPassHostPort _configFalcon, _configPi;
+        private static bool _inited = false;
+
+        public static INetworkCommunicator InstanceFalcon => GetInstanceFalcon();
+
+        public static  INetworkCommunicator InstancePi => GetInstancePi();
+
+        public static void Init(IUserPassHostPort configFalcon, IUserPassHostPort configPi)
         {
-            var protocol = config.Ssl ? "https" : "http";
-            var creds = new ServerCredential(new Uri($"{protocol}://{config.Host}:{config.Port}"), config.User, config.Password);
-            _api = new Api(creds);
-
+            _configFalcon = configFalcon;
+            _configPi = configPi;
+            _inited = true;
         }
 
-        public async Task<NetworkStatistic> GetNetworkStatisticData()
+        private static INetworkCommunicator GetInstanceFalcon()
         {
-            try
-            {
-                var data = await _api.GetTransferInfo();
-                
+            if (!_inited)
+                throw new System.Exception("Init first");
 
-                return new NetworkStatistic
-                {
-                    TotalRx = data.dl_info_speed,
-                    TotalTx = data.up_info_speed,
-                    Connection_status = data.connection_status,
-                    DhtNodes = data.dht_nodes,
-                    DlRateLimit = data.dl_rate_limit,
-                    Queueing = data.queueing,
-                    RefreshInterval = data.refresh_interval,
-                    TotalRxSession = data.dl_info_data,
-                    TotalTxSession = data.up_info_data,
-                    UpRateLimit = data.up_rate_limit,
-                    UseAltSpeedLimits = data.use_alt_speed_limits
-                };
-            }
-            catch(Exception ex)
-            {
-                Logger.Instance.Log(ex);
-                return new();
-            }
+            return _qBitTorrentCommunicatorFalcon ??= new QBittorrentCommunicator(_configFalcon);
+        }
+
+        private static INetworkCommunicator GetInstancePi()
+        {
+            if (!_inited)
+                throw new System.Exception("Init first");
+
+            return _qBitTorrentCommunicatorPi ??= new QBittorrentCommunicator(_configPi);
         }
     }
 }

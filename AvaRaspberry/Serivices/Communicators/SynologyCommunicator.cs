@@ -2,12 +2,12 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using AvaRaspberry.Extenstion;
+using AvaRaspberry.Interfaces;
 using AvaRaspberry.Models.Torrent;
-using AvaRaspberry.ViewModels;
 using qBittorrent.qBittorrentApi;
 using SynologyClient;
 
-namespace AvaRaspberry.Serivices
+namespace AvaRaspberry.Serivices.Communicators
 {
     public class SynologyCommunicator : IPcCommunicator
     {
@@ -17,7 +17,7 @@ namespace AvaRaspberry.Serivices
         {
             try
             {
-                var config = ConfigurationSingleton.Instance.Widgets.Synology;
+                var config = ConfigurationService.Instance.Widgets.Synology;
 
                 var protocol = config.Ssl ? "https" : "http";
 
@@ -34,7 +34,7 @@ namespace AvaRaspberry.Serivices
             }
             catch (Exception ex)
             {
-                Logger.Instance.Log(ex);
+                LoggerService.Instance.Log(ex);
             }
         }
 
@@ -47,11 +47,11 @@ namespace AvaRaspberry.Serivices
             return info;
         }
 
-        public Task<NetworkStatistic> GetNetworkStatisticData()
+        public Task<NetworkStatisticResponce> GetNetworkStatisticData()
         {
             return Task.Run(() =>
             {
-                if (_api is null) return new NetworkStatistic();
+                if (_api is null) return new NetworkStatisticResponce();
 
                 try
                 {
@@ -59,23 +59,22 @@ namespace AvaRaspberry.Serivices
                     if (info != null && info.Data != null)
                     {
                         var total = info.Data.Network.FirstOrDefault();
-                        return new NetworkStatistic()
+                        return new NetworkStatisticResponce()
                         {
                             TotalRx = total?.rx ?? 0,
                             TotalTx = total?.tx ?? 0,
                             Connection_status = connection_status.connected,
-                            Device = total?.device
+                            Device = total?.device,
+                            Result = true
                         };
                     }
-                    throw new Exception();
 
-
+                    return new() { Result = false };
                 }
                 catch (Exception ex)
                 {
-                    Logger.Instance.Log(ex);
-
-                    return new();
+                    LoggerService.Instance.Log(ex);
+                    return new() { Result = false };
                 }
 
             });

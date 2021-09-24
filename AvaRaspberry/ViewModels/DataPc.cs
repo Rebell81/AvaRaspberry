@@ -3,7 +3,7 @@ using ReactiveUI;
 
 namespace AvaRaspberry.ViewModels
 {
-    public class IDataPc : WidgetViewModel
+    public class DataPc : WidgetViewModel
     {
         private string _name = string.Empty;
         private string _errorCode = string.Empty;

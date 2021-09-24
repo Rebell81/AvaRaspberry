@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using Avalonia.Microcharts;
 using AvaRaspberry.Serivices;
 using SkiaSharp;
+using AvaRaspberry.Interfaces;
 
 namespace AvaRaspberry.ViewModels
 {
-    public class SynologyViewModel : IDataPc
+    public class SynologyViewModel : DataPc
     {
         private List<Tuple<DateTime, Entry>> _entriesTx = new List<Tuple<DateTime, Entry>>();
         private List<Tuple<DateTime, Entry>> _entriesRx = new List<Tuple<DateTime, Entry>>();
@@ -86,21 +87,21 @@ namespace AvaRaspberry.ViewModels
 
 
 
-                            ProcessEntry(ref _entriesTx, info.Data.Network[0].tx, App.Green, App.SynologyMaxTx,
-                                DateTime.Now.AddSeconds(-30), out var chartTx);
+                            //ProcessEntry(ref _entriesTx, info.Data.Network[0].tx, App.Green, App.SynologyMaxTx,
+                            //    DateTime.Now.AddSeconds(-30), out var chartTx);
 
-                            ProcessEntry(ref _entriesRx, info.Data.Network[0].rx, App.Blue, App.SynologyMaxTx,
-                                DateTime.Now.AddSeconds(-30), out var chartRx);
+                            //ProcessEntry(ref _entriesRx, info.Data.Network[0].rx, App.Blue, App.SynologyMaxTx,
+                            //    DateTime.Now.AddSeconds(-30), out var chartRx);
 
 
-                            ChartTx = chartTx;
-                            ChartRx = chartRx;
+                            //ChartTx = chartTx;
+                            //ChartRx = chartRx;
                         }
 
                     }
                     catch(Exception ex)
                     {
-                        Logger.Instance.Log(ex);
+                        LoggerService.Instance.Log(ex);
                         IsConnected = false;
                     }
                     finally
