@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvaRaspberry", "AvaRaspberr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SYno", "SYno\SYno.csproj", "{D26B6FD1-C216-4354-A293-0CD9C79AE17B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "qBittorrent.qBittorrentApi", "qBittorrent\src\qBittorrent.qBittorrentApi\qBittorrent.qBittorrentApi.csproj", "{ECDE3DE6-3AD0-4EA1-90B8-96AA9ADA5AAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avalonia.Microcharts", "AvaCharts\Avalonia.Microcharts\Avalonia.Microcharts.csproj", "{8AA845C0-48D9-4757-9E98-42F03FF9F927}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avalonia.Microcharts", "Avalonia.Microcharts\src\Avalonia.Microcharts\Avalonia.Microcharts.csproj", "{40E06096-B9F9-4FAC-872C-FF37E260CD17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "qBittorrent.qBittorrentApi", "QBit\qBittorrent.qBittorrentApi.csproj", "{11EECEB1-AE78-41D6-A51D-B087B4A18C48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,14 +25,14 @@ Global
 		{D26B6FD1-C216-4354-A293-0CD9C79AE17B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D26B6FD1-C216-4354-A293-0CD9C79AE17B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D26B6FD1-C216-4354-A293-0CD9C79AE17B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ECDE3DE6-3AD0-4EA1-90B8-96AA9ADA5AAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ECDE3DE6-3AD0-4EA1-90B8-96AA9ADA5AAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ECDE3DE6-3AD0-4EA1-90B8-96AA9ADA5AAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ECDE3DE6-3AD0-4EA1-90B8-96AA9ADA5AAF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{40E06096-B9F9-4FAC-872C-FF37E260CD17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{40E06096-B9F9-4FAC-872C-FF37E260CD17}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{40E06096-B9F9-4FAC-872C-FF37E260CD17}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{40E06096-B9F9-4FAC-872C-FF37E260CD17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AA845C0-48D9-4757-9E98-42F03FF9F927}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AA845C0-48D9-4757-9E98-42F03FF9F927}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AA845C0-48D9-4757-9E98-42F03FF9F927}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AA845C0-48D9-4757-9E98-42F03FF9F927}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11EECEB1-AE78-41D6-A51D-B087B4A18C48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11EECEB1-AE78-41D6-A51D-B087B4A18C48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11EECEB1-AE78-41D6-A51D-B087B4A18C48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11EECEB1-AE78-41D6-A51D-B087B4A18C48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

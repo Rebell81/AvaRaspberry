@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Http Client for the qBittorrent Web Api using System.Net.Http</Description>
+    <AssemblyTitle>qBittorrent Web Api Client</AssemblyTitle>
+    <Authors>rbarbe</Authors>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>qBittorrent.qBittorrentApi</AssemblyName>
+    <PackageId>qBittorrent.qBittorrentApi</PackageId>
+    <PackageProjectUrl>https://github.com/rbarbe/qBittorrentApi</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/rbarbe/qBittorrentApi/master/LICENSE</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>git://github.com/rbarbe/qBittorrentApi</RepositoryUrl>
+    <Version>0.0.9</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="System.Net.Http" Version="4.3.3" />
+  </ItemGroup>
+
+</Project>
