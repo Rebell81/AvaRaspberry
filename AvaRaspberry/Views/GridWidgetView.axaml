@@ -3,6 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:views="clr-namespace:AvaRaspberry.Views"
+             xmlns:widgets="clr-namespace:AvaRaspberry.Views.Widgets"
+
              xmlns:viewModels="clr-namespace:AvaRaspberry.ViewModels"
              mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="350"
              x:Class="AvaRaspberry.Views.GridWidgetView">
@@ -10,17 +12,15 @@
         <viewModels:GridWidgetViewModel/>
     </UserControl.DataContext>
     <Grid ShowGridLines="True" ColumnDefinitions="*,*,*" RowDefinitions="*,*,*">
-        <views:PcView Grid.Column="0" Grid.Row="0" >
-            <views:PcView.DataContext>
-                <viewModels:SynologyViewModel></viewModels:SynologyViewModel>
-            </views:PcView.DataContext>
-        </views:PcView>
-		<views:TorrentView Grid.Column="1" Grid.Row="0" DataContext="{Binding QbTorrentViewModelLocal}" />
-		<views:TorrentView Grid.Column="2" Grid.Row="0" DataContext="{Binding QbTorrentViewModel}" />
+        <views:PcView Grid.Column="0" Grid.Row="0" DataContext="{Binding SynologyViewModel}"/>
+		<views:TorrentView Grid.Column="1" Grid.Row="0" DataContext="{Binding QbTorrentViewModelPi}" />
+		<views:TorrentView Grid.Column="2" Grid.Row="0" DataContext="{Binding QbTorrentViewModelFalcon}" />
 
-		<views:EmptyWidgetView Grid.Column="0" Grid.Row="1" Text="Не подсматривай" />
-		<views:EmptyWidgetView Grid.Column="1" Grid.Row="1" Text="Ну можешь улыбнуться" />
-		<views:EmptyWidgetView Grid.Column="2" Grid.Row="1" Text="А вообще чё ты тут забыла?" />
+		<widgets:Chart24 Grid.Column="0" Grid.Row="1" DataContext="{Binding NetworkChartsViewModelSynology}" />
+		<widgets:Chart24 Grid.Column="1" Grid.Row="1" DataContext="{Binding NetworkChartsViewModelTorrentPi}" />
+		<widgets:Chart24 Grid.Column="2" Grid.Row="1" DataContext="{Binding NetworkChartsViewModelTorrentFalcon}" />
+		
+		
 		<views:EmptyWidgetView Grid.Column="0" Grid.Row="2" Foreground="RED" FontWeight="Bold" Text="!!!!Щас током ляснет!!!!!!" />
 		<views:EmptyWidgetView Grid.Column="1" Grid.Row="2" Text="Кстати хочу пива P.S. не я. Это сервак" />
 		<views:EmptyWidgetView Grid.Column="2" Grid.Row="2" Foreground="RED" FontWeight="Bold" Text="Только не лей на него пиво!!!!!" />

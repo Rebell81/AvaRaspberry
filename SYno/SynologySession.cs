@@ -37,7 +37,7 @@ namespace SynologyClient
             request.AddParameter("format", "cookie");
 
             var response = client.Execute<RawSynologyResponse>(request);
-            if (response.Data.success)
+            if (response.Data!=null && response.Data.success)
             {
                 sid = response.Data.data["sid"];
                 loggedInTime = DateTime.UtcNow;

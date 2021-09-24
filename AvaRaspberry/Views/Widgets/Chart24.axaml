@@ -1,0 +1,15 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:controls="clr-namespace:AvaRaspberry.UserControls"
+             xmlns:viewmodels="clr-namespace:AvaRaspberry.ViewModels"
+             d:DataContext="{viewmodels:NetworkChartsViewModel}"
+             x:Class="AvaRaspberry.Views.Widgets.Chart24">
+    <Grid Background="Black" >
+       <controls:RxTxCharts />
+       <TextBlock Foreground="DarkGray" TextAlignment="Center" VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                  Text="{Binding WidgetTitle}" Margin="0,20"/>
+   </Grid>
+</UserControl>

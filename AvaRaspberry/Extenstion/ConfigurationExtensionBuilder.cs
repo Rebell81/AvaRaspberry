@@ -12,6 +12,6 @@ namespace AvaRaspberry.Extenstion
         }
         
         private static void BuildConfig()
-            => ConfigurationSingleton.GetInstance();
+            => ConfigurationService.GetInstance();
     }
 }

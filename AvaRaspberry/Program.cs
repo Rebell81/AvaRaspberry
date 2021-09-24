@@ -1,4 +1,5 @@
-﻿using Avalonia;
+﻿using System;
+using Avalonia;
 using Avalonia.ReactiveUI;
 using AvaRaspberry.Extenstion;
 
@@ -11,8 +12,11 @@ namespace AvaRaspberry
         // yet and stuff might break. 
         public static void Main(string[] args)
         {
+            Console.WriteLine("MainStart");
+
             BuildAvaloniaApp()
                 .StartWithClassicDesktopLifetime(args);
+            Console.WriteLine("MainEnd");
         }
 
         // Avalonia configuration, don't remove; also used by visual designer.

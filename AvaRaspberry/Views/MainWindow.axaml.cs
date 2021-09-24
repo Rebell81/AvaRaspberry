@@ -1,6 +1,5 @@
-using Avalonia;
+using System;
 using Avalonia.Controls;
-using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 
 namespace AvaRaspberry.Views
@@ -9,12 +8,20 @@ namespace AvaRaspberry.Views
     {
         public MainWindow()
         {
-            Cursor = new Cursor(StandardCursorType.None);
-            
+            Console.WriteLine("MainWindow S");
+
             InitializeComponent();
+            Console.WriteLine("MainWindow m");
+
 #if DEBUG
-            this.AttachDevTools();
+            Avalonia.DevToolsExtensions.AttachDevTools(this);
+            WindowState = WindowState.Normal;
+#else
+            WindowState = WindowState.FullScreen;
+            SystemDecorations = SystemDecorations.None;
 #endif
+            Console.WriteLine("MainWindow e");
+
         }
 
         private void InitializeComponent()
