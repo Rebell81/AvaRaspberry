@@ -16,6 +16,7 @@ namespace AvaRaspberry
 
             BuildAvaloniaApp()
                 .StartWithClassicDesktopLifetime(args);
+                
             Console.WriteLine("MainEnd");
         }
 

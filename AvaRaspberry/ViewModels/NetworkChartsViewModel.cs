@@ -248,16 +248,16 @@ namespace AvaRaspberry.ViewModels
                     //s2.Stop();
 
                     //ConsoleLog(sw, WidgetTitle, "10");
-                    if (log)
-                    {
+                    // if (log)
+                    // {
 
-                        Console.WriteLine($" {Thread.CurrentThread.ManagedThreadId} total | {s2.Elapsed.Humanize()} | {s2.Elapsed.TotalMilliseconds}");
-                        Debug.WriteLine($" {Thread.CurrentThread.ManagedThreadId} total | {s2.Elapsed.Humanize()} | {s2.Elapsed.TotalMilliseconds}");
+                    //     Console.WriteLine($" {Thread.CurrentThread.ManagedThreadId} total | {s2.Elapsed.Humanize()} | {s2.Elapsed.TotalMilliseconds}");
+                    //     Debug.WriteLine($" {Thread.CurrentThread.ManagedThreadId} total | {s2.Elapsed.Humanize()} | {s2.Elapsed.TotalMilliseconds}");
 
-                        Console.WriteLine($"---------------------------------------------------------------------------------------------------------------------------------------------------------");
-                        Debug.WriteLine($"---------------------------------------------------------------------------------------------------------------------------------------------------------");
+                    //     Console.WriteLine($"---------------------------------------------------------------------------------------------------------------------------------------------------------");
+                    //     Debug.WriteLine($"---------------------------------------------------------------------------------------------------------------------------------------------------------");
 
-                    }
+                    // }
                 }
                 catch (Exception ex)
                 {
