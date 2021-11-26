@@ -22,11 +22,11 @@ namespace AvaRaspberry
             {
                 LoggerService.Instance.Log(e.Exception);
             };
-
+            
         }
 
-
-
+        
+        
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             LoggerService.Instance.Log(e.ExceptionObject);
@@ -57,19 +57,13 @@ namespace AvaRaspberry
             Console.WriteLine("Initialize End");
         }
 
-
+        
+        
         public override void OnFrameworkInitializationCompleted()
         {
-            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktopLifetime)
+            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktopLifetime.MainWindow = new MainWindow
-                {
-                    DataContext = new MainWindowViewModel()
-                };
-            }
-            else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewLifetime)
-            {
-                singleViewLifetime.MainView = new MainWindow
+                desktop.MainWindow = new MainWindow
                 {
                     DataContext = new MainWindowViewModel()
                 };

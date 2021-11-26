@@ -19,5 +19,5 @@ rm /home/pi/Documents/log.txt
 #gpg --batch --yes --passphrase-fd 0 -d appsettings.json.gpg > appsettings.json
 
 # Run
-( dotnet AvaRaspberry.dll --fbdev & )
+( dotnet AvaRaspberry.dll & )
 echo "Build and run project script is executed."
