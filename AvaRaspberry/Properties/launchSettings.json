@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AvaRaspberry": {
+      "commandName": "Project",
+      "commandLineArgs": "--fbdev"
+    }
+  }
+}
