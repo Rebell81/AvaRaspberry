@@ -163,37 +163,37 @@ namespace AvaRaspberry.ViewModels
             {
                 try
                 {
-                    var sw = new Stopwatch();
-                    var s2 = new Stopwatch();
-                    s2.Start();
-                    sw.Start();
+                    //var sw = new Stopwatch();
+                    //var s2 = new Stopwatch();
+                    //s2.Start();
+                    //sw.Start();
                     var perMin = false;
 
-                    ConsoleLog(sw, WidgetTitle, "1");
+                    //ConsoleLog(sw, WidgetTitle, "1");
 
                     ProcessEntry(ref _entriesTx, NetworkStatistic.TotalTx,
                         App.Green, DateTime.Now.AddSeconds(-_seconds), out _tickedEntriesTx, _maxTx, NetworkStatistic.Result);
 
-                    ConsoleLog(sw, WidgetTitle, "2");
+                    //ConsoleLog(sw, WidgetTitle, "2");
 
                     ProcessEntry(ref _entriesRx, NetworkStatistic.TotalRx,
                         App.Blue, DateTime.Now.AddSeconds(-_seconds), out _tickedEntriesRx, _maxTx, NetworkStatistic.Result);
 
-                    ConsoleLog(sw, WidgetTitle, "3");
+                    //ConsoleLog(sw, WidgetTitle, "3");
 
 
                     if (_tickedEntriesRx.Count > 50)
                     {
                         perMin = ProcessPerMinute(ref _entriesRx, out _tickedEntriesRx);
                     }
-                    ConsoleLog(sw, WidgetTitle, "4");
+                    //ConsoleLog(sw, WidgetTitle, "4");
 
 
                     if (perMin)
                     {
                         ProcessPerMinute(ref _entriesTx, out _tickedEntriesTx);
                     }
-                    ConsoleLog(sw, WidgetTitle, "5");
+                    //ConsoleLog(sw, WidgetTitle, "5");
 
 
                     var perHour = false;
@@ -203,7 +203,7 @@ namespace AvaRaspberry.ViewModels
                         perHour = ProcessPerHalfHour(ref _tickedEntriesTx, out var tickedEntriesTx);
                         _tickedEntriesTx = tickedEntriesTx;
                     }
-                    ConsoleLog(sw, WidgetTitle, "6");
+                    //ConsoleLog(sw, WidgetTitle, "6");
 
 
                     if (perHour)
@@ -211,7 +211,7 @@ namespace AvaRaspberry.ViewModels
                         ProcessPerHalfHour(ref _tickedEntriesRx, out var tickedEntriesRx);
                         _tickedEntriesRx = tickedEntriesRx;
                     }
-                    ConsoleLog(sw, WidgetTitle, "7");
+                    //ConsoleLog(sw, WidgetTitle, "7");
 
 
 
@@ -221,7 +221,7 @@ namespace AvaRaspberry.ViewModels
                         WidgetTitle = $"{span.Humanize()} | H:{perHour} M:{perMin}| Rx: {_tickedEntriesRx.Count()} | Tx: {_tickedEntriesTx.Count()}";
 
 
-                    ConsoleLog(sw, WidgetTitle, "8");
+                    //ConsoleLog(sw, WidgetTitle, "8");
                     ChartTx = new LineChart()
                     {
                         Entries = _tickedEntriesTx.Select(x => x.Item2).ToArray(),
@@ -232,7 +232,7 @@ namespace AvaRaspberry.ViewModels
                         //MaxValue = _tickedEntriesTx.Max(x=>x.Item2.Value),
                         MinValue = 0
                     };
-                    ConsoleLog(sw, WidgetTitle, "9");
+                    //ConsoleLog(sw, WidgetTitle, "9");
 
                     ChartRx = new LineChart()
                     {
@@ -245,9 +245,9 @@ namespace AvaRaspberry.ViewModels
                         MinValue = 0
                     };
 
-                    s2.Stop();
+                    //s2.Stop();
 
-                    ConsoleLog(sw, WidgetTitle, "10");
+                    //ConsoleLog(sw, WidgetTitle, "10");
                     if (log)
                     {
 
