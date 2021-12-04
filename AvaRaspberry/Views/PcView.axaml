@@ -4,11 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:AvaRaspberry.ViewModels"
              xmlns:controls="clr-namespace:AvaRaspberry.UserControls"
-
+			 xmlns:converters="clr-namespace:AvaRaspberry.Converters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              Background="#B0E0E6"
              d:DataContext="{viewModels:SynologyViewModel}"
              x:Class="AvaRaspberry.Views.PcView">
+	<UserControl.Resources>
+		<converters:BytesToUserFriendlyText x:Key="BytesToUserFriendlySpeed" IsSpeed="True" />
+		<converters:BytesToUserFriendlyText x:Key="BytesToUserFriendlySize" IsSpeed="False" />
+	</UserControl.Resources>
     <Grid Background="Black">
       
         <controls:RxTxCharts/>
@@ -35,7 +39,7 @@
 
             <StackPanel Orientation="Horizontal" Margin="0,10">
                 <TextBlock Foreground="DarkGray" TextAlignment="Center" Text="Network" Margin="20,0" />
-                <TextBlock Foreground="DarkGray" TextAlignment="Center" Text="{Binding Network}" />
+                <TextBlock Foreground="Yellow" FontWeight="Bold"  TextAlignment="Center" Text="{Binding Network}" />
             </StackPanel>
         </StackPanel>
     </Grid>

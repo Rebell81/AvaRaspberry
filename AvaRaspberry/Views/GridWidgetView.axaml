@@ -19,9 +19,11 @@
 		<widgets:Chart24 Grid.Column="0" Grid.Row="1" DataContext="{Binding NetworkChartsViewModelSynology}" />
 		<widgets:Chart24 Grid.Column="1" Grid.Row="1" DataContext="{Binding NetworkChartsViewModelTorrentPi}" />
 		<widgets:Chart24 Grid.Column="2" Grid.Row="1" DataContext="{Binding NetworkChartsViewModelTorrentFalcon}" />
-		
-		
-		<views:EmptyWidgetView Grid.Column="0" Grid.Row="2" Foreground="RED" FontWeight="Bold" Text="!!!!Щас током ляснет!!!!!!" />
+
+
+		<Grid Grid.Column="0" Grid.Row="2" Background="Black">
+			<Button Content="-----------" Click="Click" VerticalAlignment="Center" Foreground="gray" HorizontalAlignment="Center"></Button>
+		</Grid>
 		<views:EmptyWidgetView Grid.Column="1" Grid.Row="2" Text="Кстати хочу пива P.S. не я. Это сервак" />
 		<views:EmptyWidgetView Grid.Column="2" Grid.Row="2" Foreground="RED" FontWeight="Bold" Text="Только не лей на него пиво!!!!!" />
 

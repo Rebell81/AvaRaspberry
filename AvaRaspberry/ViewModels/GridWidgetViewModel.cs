@@ -15,10 +15,12 @@ namespace AvaRaspberry.ViewModels
 
         public GridWidgetViewModel()
         {
-            QBitTorrentService.Init(ConfigurationService.Instance.Widgets.Torrents.Falcon, ConfigurationService.Instance.Widgets.Torrents.Pi);
+            try
+            {
+                QBitTorrentService.Init(ConfigurationService.Instance.Widgets.Torrents.Falcon, ConfigurationService.Instance.Widgets.Torrents.Pi);
 
 
-            var tasks = new List<Task>
+                var tasks = new List<Task>
             {
                 new(InitSynologyViewModel),
                 new(InitTorrentViewModelPi),
@@ -29,10 +31,16 @@ namespace AvaRaspberry.ViewModels
                 new(InitNetworkChartsViewModelFalcon),
             };
 
-            Parallel.ForEach(tasks, task =>
+                Parallel.ForEach(tasks, task =>
+                {
+                    task.Start();
+                });
+            }
+            catch(Exception ex)
             {
-                task.Start();
-            });
+
+            }
+           
         }
 
 
@@ -116,7 +124,7 @@ namespace AvaRaspberry.ViewModels
         {
             NetworkChartsViewModelSynology = new NetworkChartsViewModel(
                 SynologyService.Instance,
-                (int)TimeSpan.FromHours(24).TotalSeconds, App.SynologyMaxTx, App.SynologyMaxTxLine, App.SynologyMediumTxLine);
+                (ushort)TimeSpan.FromHours(24).TotalSeconds);
         }
 
 
@@ -135,8 +143,7 @@ namespace AvaRaspberry.ViewModels
         private void InitNetworkChartsViewModelPi()
         {
             NetworkChartsViewModelTorrentPi = new NetworkChartsViewModel(
-                QBitTorrentService.InstancePi, (int)TimeSpan.FromHours(24).TotalSeconds, App.TorrentMaxTx,
-                App.TorrentMaxTxLine, App.TorrentMediumTxLine);
+                QBitTorrentService.InstancePi, (ushort)TimeSpan.FromHours(24).TotalSeconds);
         }
 
 
@@ -154,8 +161,7 @@ namespace AvaRaspberry.ViewModels
         private void InitNetworkChartsViewModelFalcon()
         {
             NetworkChartsViewModelTorrentFalcon = new NetworkChartsViewModel(
-                 QBitTorrentService.InstanceFalcon, (int)TimeSpan.FromHours(24).TotalSeconds,
-                 App.TorrentMaxTx, App.TorrentMaxTxLine, App.TorrentMediumTxLine, true);
+                 QBitTorrentService.InstanceFalcon, (ushort)TimeSpan.FromHours(24).TotalSeconds);
         }
     }
 }

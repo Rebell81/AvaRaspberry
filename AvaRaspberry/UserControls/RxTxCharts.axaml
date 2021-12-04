@@ -5,13 +5,16 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:viewModels="clr-namespace:AvaRaspberry.ViewModels"
              d:DataContext="{viewModels:SynologyViewModel}"
+             xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
              xmlns:microcharts="clr-namespace:Avalonia.Microcharts;assembly=Avalonia.Microcharts"
              x:Class="AvaRaspberry.UserControls.RxTxCharts">
    <Grid Margin="0,10">
-	  
 
 
-	   <microcharts:MicrochartControl HorizontalAlignment="Stretch"
+	   <lvc:CartesianChart Series="{Binding Series}" ZoomMode="X" XAxes="{Binding XAxes}" YAxes="{Binding YAxes}"/>
+
+
+	   <!--<microcharts:MicrochartControl HorizontalAlignment="Stretch"
                                       VerticalAlignment="Stretch"
                                       Chart="{Binding ChartTx}"  />
        <microcharts:MicrochartControl HorizontalAlignment="Stretch"
@@ -24,6 +27,6 @@
 
 	   <microcharts:MicrochartControl HorizontalAlignment="Stretch"
 								  VerticalAlignment="Stretch"
-								  Chart="{Binding ChartLineMedium}"  />
+								  Chart="{Binding ChartLineMedium}"  />-->
    </Grid>
 </UserControl>

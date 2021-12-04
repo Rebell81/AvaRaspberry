@@ -13,10 +13,16 @@ namespace AvaRaspberry.Serivices
 
         public QBittorrentCommunicator(IUserPassHostPort config)
         {
-            var protocol = config.Ssl ? "https" : "http";
-            var creds = new ServerCredential(new Uri($"{protocol}://{config.Host}:{config.Port}"), config.User, config.Password);
-            _api = new Api(creds);
+            try
+            {
+                var protocol = config.Ssl ? "https" : "http";
+                var creds = new ServerCredential(new Uri($"{protocol}://{config.Host}:{config.Port}"), config.User, config.Password);
+                _api = new Api(creds);
+            }
+            catch(Exception ex)
+            {
 
+            }
         }
 
         public async Task<NetworkStatisticResponce> GetNetworkStatisticData()

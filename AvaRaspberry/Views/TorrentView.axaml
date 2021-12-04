@@ -22,13 +22,13 @@
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 				<TextBlock Foreground="DarkGray" Text="Network"  TextAlignment="Center"/>
 				<TextBlock FontWeight="Bold" Foreground="Blue" Margin="20,0,0,0" TextAlignment="Center" Text="{Binding NetworkStatistic.TotalRx, Converter={StaticResource BytesToUserFriendlySpeed}}"/>
-				<TextBlock FontWeight="Bold" Foreground="Green" Margin="20,0,0,0" TextAlignment="Center" Text="{Binding NetworkStatistic.TotalTx, Converter={StaticResource BytesToUserFriendlySpeed}}"/>
+				<TextBlock FontWeight="Bold" Foreground="Yellow" Margin="20,0,0,0" TextAlignment="Center" Text="{Binding NetworkStatistic.TotalTx, Converter={StaticResource BytesToUserFriendlySpeed}}"/>
 			</StackPanel>
 
 			<StackPanel Orientation="Horizontal" Margin="0,20"  HorizontalAlignment="Center">
 				<TextBlock Foreground="DarkGray" Text="Session Traffic"  TextAlignment="Center"/>
 				<TextBlock FontWeight="Bold" Foreground="Blue" Margin="20,0,0,0" TextAlignment="Center" Text="{Binding NetworkStatistic.TotalRxSession, Converter={StaticResource BytesToUserFriendlySize}}"/>
-				<TextBlock FontWeight="Bold" Foreground="Green" Margin="20,0,0,0" TextAlignment="Center" Text="{Binding NetworkStatistic.TotalTxSession, Converter={StaticResource BytesToUserFriendlySize}}"/>
+				<TextBlock FontWeight="Bold" Foreground="Yellow" Margin="20,0,0,0" TextAlignment="Center" Text="{Binding NetworkStatistic.TotalTxSession, Converter={StaticResource BytesToUserFriendlySize}}"/>
 			</StackPanel>
 		</StackPanel>
 

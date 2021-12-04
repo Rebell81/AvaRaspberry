@@ -1,0 +1,17 @@
+﻿<UserControl  xmlns:lvc1="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia" xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:viewModels="clr-namespace:AvaRaspberry.ViewModels"
+             d:DataContext="{viewModels:SynologyViewModel}"
+             xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
+             xmlns:microcharts="clr-namespace:Avalonia.Microcharts;assembly=Avalonia.Microcharts"
+             x:Class="AvaRaspberry.UserControls.RxTxCharts">
+    <Grid Margin="0,10">
+
+
+        <lvc1:CartesianChart Series="{Binding Series}" DrawMarginFrame="{Binding DrawMarginFrame}" />
+
+    </Grid>
+</UserControl>

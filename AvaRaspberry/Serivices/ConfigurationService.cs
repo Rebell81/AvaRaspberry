@@ -33,7 +33,7 @@ namespace AvaRaspberry.Extenstion
                 var bulder = new ConfigurationBuilder();
                 Console.WriteLine("GetInstance 2");
 
-                    var filsse = bulder.AddJsonFile("/home/pi/Documents/appsettings.json",
+                    var filsse = bulder.AddJsonFile("appsettings.json",
                             true, false);
                     Console.WriteLine("GetInstance 3");
 

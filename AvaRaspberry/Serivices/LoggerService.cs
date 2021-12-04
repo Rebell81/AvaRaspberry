@@ -14,7 +14,7 @@ namespace AvaRaspberry.Serivices
 
         private LoggerService()
         {
-            _path = "/home/pi/Documents/log.txt";
+            _path = "log.txt";
         }
 
         private static LoggerService GetInstance()

@@ -20,6 +20,8 @@ namespace AvaRaspberry.Views
             WindowState = WindowState.FullScreen;
             SystemDecorations = SystemDecorations.None;
 #endif
+
+            ShowInTaskbar = true;
             Console.WriteLine("MainWindow e");
 
         }

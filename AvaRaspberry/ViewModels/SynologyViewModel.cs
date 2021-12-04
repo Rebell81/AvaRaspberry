@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ReactiveUI;
 using System.Threading.Tasks;
-using Avalonia.Microcharts;
 using AvaRaspberry.Serivices;
 using SkiaSharp;
 using AvaRaspberry.Interfaces;
@@ -16,12 +15,13 @@ namespace AvaRaspberry.ViewModels
     {
 
         private BytesToUserFriendlyText converter = new BytesToUserFriendlyText();
+        private BytesToUserFriendlyText converter2 = new BytesToUserFriendlyText() { IsSpeed = true };
 
 
         private readonly IPcCommunicator _communicator;
 
 
-        public SynologyViewModel(IPcCommunicator communicator) : base(communicator, 30, App.SynologyMaxTx, App.SynologyMaxTxLine, App.SynologyMediumTxLine, false, true)
+        public SynologyViewModel(IPcCommunicator communicator) : base(communicator, 30)
         {
             Name = "Falcon";
             Start();
@@ -58,7 +58,7 @@ namespace AvaRaspberry.ViewModels
 
 
                             RamText = $"{converter.Convert(_currentRam)} / {converter.Convert(TotalRam)} ({info.Data.Memory.real_usage}%)";
-                            Network = $"{converter.Convert(info.Data.Network[0].rx)} / {converter.Convert(info.Data.Network[0].tx)}";
+                            Network = $"{converter2.Convert(info.Data.Network[0].rx)}     {converter2.Convert(info.Data.Network[0].tx)}";
 
 
                             //if (ChartTx?.Entries != null)

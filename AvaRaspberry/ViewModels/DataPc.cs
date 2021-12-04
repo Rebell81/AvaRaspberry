@@ -7,8 +7,8 @@ namespace AvaRaspberry.ViewModels
     public class DataPc : NetworkChartsViewModel
     {
 
-        protected DataPc(INetworkCommunicator communicator, int seconds, long maxTx, long maxLine, long mediumLine, bool log = false, bool isTitleOverrided = false)
-            : base(communicator, seconds, maxTx, maxLine, mediumLine, log, isTitleOverrided)
+        protected DataPc(INetworkCommunicator communicator, ushort max)
+            : base(communicator, max)
         {
 
         }

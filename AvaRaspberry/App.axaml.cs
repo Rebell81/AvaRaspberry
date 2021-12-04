@@ -16,6 +16,9 @@ namespace AvaRaspberry
 
         public App()
         {
+
+            LoggerService.Instance.Log("dasd");
+
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
             TaskScheduler.UnobservedTaskException += (s, e) =>
@@ -65,7 +68,9 @@ namespace AvaRaspberry
             {
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel()
+                    DataContext = new MainWindowViewModel(),
+                    ShowInTaskbar=true,
+
                 };
             }
 

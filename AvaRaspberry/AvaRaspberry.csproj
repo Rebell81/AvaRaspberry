@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Nullable>disable</Nullable>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -17,6 +17,7 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.3" />
     <PackageReference Include="Humanizer" Version="2.11.10" />
     <PackageReference Include="Humanizer.Core" Version="2.11.10" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-beta.80" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0-preview.7.21377.19" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="106.12.0" />
@@ -24,7 +25,6 @@
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0-preview.7.21377.19" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AvaCharts\Avalonia.Microcharts.csproj" />
     <ProjectReference Include="..\QBit\qBittorrent.qBittorrentApi.csproj" />
     <ProjectReference Include="..\SYno\SYno.csproj" />
   </ItemGroup>
@@ -40,7 +40,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Update="appsettings.json.gpg">
+    <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="appsettings.json">
